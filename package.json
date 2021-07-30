@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "exit(0)",
-    "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/.json && rm .json"
+    "start": "node src/index",
+    "serve": "nodemon src/index",
+    "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/info.json && rm .json && node src/parser"
   },
   "repository": {
     "type": "git",
@@ -18,6 +20,22 @@
   },
   "homepage": "https://github.com/cartory/videoRentalSystem#readme",
   "devDependencies": {
-    "fast-xml-parser": "^3.19.0"
+    "dotenv": "^10.0.0",
+    "fast-xml-parser": "^3.19.0",
+    "nodemon": "^2.0.12"
+  },
+  "nodemonConfig": {
+    "delay": 1000,
+    "verbose": false,
+    "ignore": [
+      ".git",
+      "dist",
+      "node_modules"
+    ],
+    "watch": [
+      "src",
+      ".env",
+      "jsconfig.json"
+    ]
   }
 }

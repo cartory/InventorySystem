@@ -1,0 +1,23 @@
+{
+  "name": "videorentalsystem",
+  "version": "1.0.0",
+  "description": "videoRentalSystem from VP and library",
+  "main": "index.js",
+  "scripts": {
+    "test": "exit(0)",
+    "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/.json && rm .json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cartory/videoRentalSystem.git"
+  },
+  "author": "cartory",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cartory/videoRentalSystem/issues"
+  },
+  "homepage": "https://github.com/cartory/videoRentalSystem#readme",
+  "devDependencies": {
+    "fast-xml-parser": "^3.19.0"
+  }
+}

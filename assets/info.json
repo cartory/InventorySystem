@@ -1,0 +1,210 @@
+[
+	{
+		"tableId": "gEmer16GAqACCAWa",
+		"tableName": "Movie",
+		"attribs": [
+			{
+				"Id": "UEmer16GAqACCAWc",
+				"Name": "ID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": true,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "cEmer16GAqACCAWd",
+				"Name": "ProducerID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1,
+				"ForeignKeyConstraints": "ZEmer16GAqACCAWy"
+			},
+			{
+				"Id": "aEmer16GAqACCAWg",
+				"Name": "Title",
+				"Type": "varchar",
+				"Length": 255,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "6Emer16GAqACCAWh",
+				"Name": "Duration",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "6Emer16GAqACCAWi",
+				"Name": "Rating",
+				"Type": "char",
+				"Length": 1,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			}
+		]
+	},
+	{
+		"tableId": "GEmer16GAqACCAWj",
+		"tableName": "Customer",
+		"attribs": [
+			{
+				"Id": "mEmer16GAqACCAWk",
+				"Name": "ID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": true,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "WEmer16GAqACCAWl",
+				"Name": "FirstName",
+				"Type": "varchar",
+				"Length": 255,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "OEmer16GAqACCAWm",
+				"Name": "LastName",
+				"Type": "varchar",
+				"Length": 255,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "OEmer16GAqACCAWn",
+				"Name": "Address",
+				"Type": "varchar",
+				"Length": 255,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "uEmer16GAqACCAWo",
+				"Name": "BirthDate",
+				"Type": "date",
+				"Length": 0,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "eEmer16GAqACCAWp",
+				"Name": "PhoneNumber",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			}
+		]
+	},
+	{
+		"tableId": ".Emer16GAqACCAWq",
+		"tableName": "Customer_Movie",
+		"attribs": [
+			{
+				"Id": "hEmer16GAqACCAWr",
+				"Name": "MovieID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": true,
+				"IdentityIncrement": -1,
+				"ForeignKeyConstraints": "UEmer16GAqACCAWc"
+			},
+			{
+				"Id": "REmer16GAqACCAWt",
+				"Name": "CustomerID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": true,
+				"IdentityIncrement": -1,
+				"ForeignKeyConstraints": "mEmer16GAqACCAWk"
+			},
+			{
+				"Id": "xEmer16GAqACCAWv",
+				"Name": "Date_Rented",
+				"Type": "timestamp",
+				"Length": 0,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "JEmer16GAqACCAWw",
+				"Name": "Due_Date",
+				"Type": "timestamp",
+				"Length": 0,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			}
+		]
+	},
+	{
+		"tableId": "pEmer16GAqACCAWx",
+		"tableName": "Producer",
+		"attribs": [
+			{
+				"Id": "ZEmer16GAqACCAWy",
+				"Name": "ID",
+				"Type": "int",
+				"Length": 10,
+				"Unique": false,
+				"Nullable": false,
+				"PrimaryKey": true,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "FEmer16GAqACCAWz",
+				"Name": "CompanyName",
+				"Type": "varchar",
+				"Length": 200,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"IdentityIncrement": -1
+			},
+			{
+				"Id": "lEmer16GAqACCAW0",
+				"Name": "Country",
+				"Type": "varchar",
+				"Length": 255,
+				"Unique": false,
+				"Nullable": true,
+				"PrimaryKey": false,
+				"DefaultValue": "Bolivia",
+				"IdentityIncrement": -1
+			}
+		]
+	}
+]

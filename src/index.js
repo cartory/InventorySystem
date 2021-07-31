@@ -1,5 +1,6 @@
 // const fs = require('fs')
 const database = require('../assets/database.json')
+const { generateModel } = require('./generator')
 
 let DB = database.map(table => {
 	table.marked = false
@@ -27,7 +28,7 @@ const generateFiles = (tables) => {
 			table.marked = true
 			console.log(table.tableName);
 			// generate Model
-			
+			generateModel(table)
 			// generate Controller
 			// generate Route
 			// generate View

@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { Project } = require('../assets/info.json')
+const { Project } = require('../assets/database.json')
 
 let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 	let attribs = table.ModelChildren.DBColumn.map(column => {
@@ -24,6 +24,6 @@ let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 	};
 })
 
-fs.writeFileSync('assets/info.json', JSON.stringify(database), {
+fs.writeFileSync('assets/database.json', JSON.stringify(database), {
 	encoding: 'utf-8'
 })

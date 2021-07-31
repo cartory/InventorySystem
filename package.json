@@ -7,7 +7,7 @@
     "test": "exit(0)",
     "start": "node src/index",
     "serve": "nodemon src/index",
-    "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/info.json && rm .json && node src/parser"
+    "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/database.json && rm .json && node src/parser"
   },
   "repository": {
     "type": "git",

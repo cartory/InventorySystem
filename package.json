@@ -37,5 +37,8 @@
       ".env",
       "jsconfig.json"
     ]
+  },
+  "dependencies": {
+    "sequelize": "^6.6.5"
   }
 }

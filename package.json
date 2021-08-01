@@ -7,7 +7,8 @@
     "test": "exit(0)",
     "start": "npm run gen && node src/index",
     "dev": "npm run gen && nodemon src/index",
-    "gen": "npm run parse && node src/generator",
+    "mkdir": "mkdir src/controllers src/models src/routes",
+    "gen": "npm run parse && npm run mkdir && node src/generator",
     "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/database.json && rm .json && node src/parser"
   },
   "repository": {

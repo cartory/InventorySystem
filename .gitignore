@@ -1,5 +1,6 @@
 # DIRS
 dist/
+routes/
 node_modules/
 
 # FILES

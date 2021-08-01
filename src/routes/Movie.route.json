@@ -1,10 +1,1 @@
-{
-	"route": "movies",
-	"operations": [
-		"read",
-		"show",
-		"create",
-		"update",
-		"delete"
-	]
-}
+{"route":"movies","operations":["read","show","create","update","delete"]}

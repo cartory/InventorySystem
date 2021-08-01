@@ -6,7 +6,7 @@
   "scripts": {
     "test": "exit(0)",
     "start": "npm run parse && node src/index",
-    "serve": "nodemon src/index",
+    "serve": "npm run parse && nodemon src/index",
     "gen": "npm run parse && node src/generator",
     "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/database.json && rm .json && node src/parser"
   },
@@ -23,6 +23,7 @@
   "devDependencies": {
     "dotenv": "^10.0.0",
     "fast-xml-parser": "^3.19.0",
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.12"
   },
   "nodemonConfig": {
@@ -42,6 +43,7 @@
   "dependencies": {
     "cors": "^2.8.5",
     "express": "^4.17.1",
+    "mysql2": "^2.2.5",
     "sequelize": "^6.6.5"
   }
 }

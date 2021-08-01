@@ -34,34 +34,30 @@ const getTableName = (foreignKey) => {
 const generateModel = (table) => {
 	let className = table.tableName
 
-	let modelFile = (`const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../orm/sequelize.config.js')
+	let modelFile = (''
+		+ "const { Model, DataTypes } = require('sequelize')\n"
+		+ "const sequelize = require('../utils/sequelize.instance.js')\n\n"
+		+ `class ${className} extends Model { }\n\n`
+		+ `${className}.init({${table.columns
+			.map((column, index) => {
+				let { name, length } = column
+				keysToDrop.forEach(key => delete column[key])
+				return `${index ? '' : '\r'}\t${name}: {\n${Object.keys(column).map(k => {
+					if (k === 'type') {
+						return `\t\t${k}: ${getDataType[column[k]](length)}`
+					}
+					if (k === 'foreignKey') {
+						return `\t\treferences: {\n\t\t\tkey: '${column[k]}',\n\t\t\tmodel: '${getTableName(column[k])}'\n\t\t}`
+					}
+					return `\t\t${k}: ${column[k]}`
+				}).join(',\n')}\n\t}`
+			}).join(',\n')
+		}\n`
+		+ `}, { sequelize, tableName: '${table.tableName}' })\n\n`
+		+ `module.exports = ${className}`
+	)
 
-class ${className} extends Model { }
 
-${className}.init({
-	${table.columns.map((column, index) => {
-		let { name, length, key } = column
-		keysToDrop.forEach(key => delete column[key])
-
-		return `${index ? '\t' : ''}${name}: {\n${Object.keys(column).map((k, index) => {
-			if (k === 'type') {
-				return `\t\t${k}: ${getDataType[column[k]](length)}`
-			}
-			if (k === 'foreignKey') {
-				return `\t\treferences: {\n\t\t\tkey: '${column[k]}',\n\t\t\tmodel: '${getTableName(column[k])}'\n\t\t}`
-			}
-			return `\t\t${k}: ${column[k]}`
-		}).join(',\n')}\n\t}`
-
-	}).join(',\t\n')}
-}, {
-	sequelize,
-	tableName: '${table.tableName}'
-})
-
-module.exports = ${className}
-	`)
 
 	fs.writeFileSync(`src/models/${className}.js`, modelFile, {
 		encoding: 'utf-8'

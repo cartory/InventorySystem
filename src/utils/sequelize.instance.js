@@ -3,7 +3,7 @@ const { Sequelize } = require('sequelize')
 require('dotenv').config()
 
 module.exports = new Sequelize({
-	logging: false,
+	logging: true,
 	host: process.env.DB_HOST,
 	port: process.env.DB_PORT,
 	dialect: process.env.DB_DIAL,

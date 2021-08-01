@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "exit(0)",
-    "start": "node src/index",
+    "start": "npm run parse && node src/index",
     "serve": "nodemon src/index",
     "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/database.json && rm .json && node src/parser"
   },

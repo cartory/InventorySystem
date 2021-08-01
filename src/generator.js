@@ -1,14 +1,14 @@
 const fs = require('fs')
-const modelJSON = require('./json/model.json')
+const database = require('../assets/database.json')
 
-const columnsToDrop = [
-	'id', 'name', 'length', 'foreignKey'
+const keysToDrop = [
+	'id', 'name', 'length',
 ]
 
 const getDataType = {
-	char: (_) => `DataTypes.CHAR`,
 	byte: (_) => `DataTypes.TINYINT`,
 	boolean: (_) => `DataTypes.BOOLEAN`,
+	char: (length) => `DataTypes.CHAR(${length})`,
 
 	float: (length) => `DataTypes.FLOAT(${length})`,
 	double: (length) => `DataTypes.DOUBLE(${length})`,
@@ -25,27 +25,43 @@ const getDataType = {
 	timestamp: (_) => `DataTypes.TIME`,
 }
 
+const getTableName = (foreignKey) => {
+	return database
+		.filter(({ columns }) => columns.filter(({ id }) => id === foreignKey))
+		.map(({ tableName }) => tableName)?.pop()
+}
+
 const generateModel = (table) => {
 	let className = table.tableName
-	let modelFile = `const { Model, DataTypes } = require('sequelize')\n`
-	modelFile += `const sequelize = require('../orm/sequelize.config.js')\n\n`
 
-	modelFile += `class ${className} extends Model { }\n\n`
+	let modelFile = (`const { Model, DataTypes } = require('sequelize')
+const sequelize = require('../orm/sequelize.config.js')
 
-	modelFile += `${className}.init({\n ${table.columns.map((column) => {
-		let { name, length } = column
+class ${className} extends Model { }
 
-		columnsToDrop.forEach(col => delete column[col])
+${className}.init({
+	${table.columns.map((column, index) => {
+		let { name, length, key } = column
+		keysToDrop.forEach(key => delete column[key])
 
-		return `\t${name}: {\n${Object.keys(column).map(k => {
+		return `${index ? '\t' : ''}${name}: {\n${Object.keys(column).map((k, index) => {
 			if (k === 'type') {
 				return `\t\t${k}: ${getDataType[column[k]](length)}`
 			}
+			if (k === 'foreignKey') {
+				return `\t\treferences: {\n\t\t\tkey: '${column[k]}',\n\t\t\tmodel: '${getTableName(column[k])}'\n\t\t}`
+			}
 			return `\t\t${k}: ${column[k]}`
 		}).join(',\n')}\n\t}`
-	}).join(',\n')}\n}, { sequelize })\n\n`
 
-	modelFile += `${modelJSON.exports} = ${className}\n`
+	}).join(',\t\n')}
+}, {
+	sequelize,
+	tableName: '${table.tableName}'
+})
+
+module.exports = ${className}
+	`)
 
 	fs.writeFileSync(`src/models/${className}.js`, modelFile, {
 		encoding: 'utf-8'

@@ -1,6 +1,14 @@
 const fs = require('fs')
 const database = require('../assets/database.json')
 
+const operations = [
+	"read",
+	"show",
+	"create",
+	"update",
+	"delete",
+]
+
 const keysToDrop = [
 	'id', 'name', 'length',
 ]
@@ -66,8 +74,8 @@ const generateController = ({ tableName }) => {
 	let controllerFile = (''
 		+ "const { Controller } = require('../utils/controller')\n"
 		+ `const ${tableName} = require('../models/${tableName}')\n\n`
-		+ `class ${tableName}Controller extends Controller {
-			\n\tconstructor() {\r\t\tsuper(${tableName})\r\t}\r}\n\n`
+		+ `class ${tableName}Controller extends Controller {\n`
+		+ `\tconstructor() {\r\t\tsuper(${tableName})\r\t}\r}\n\n`
 		+ `module.exports = new ${tableName}Controller()`
 	)
 
@@ -76,7 +84,18 @@ const generateController = ({ tableName }) => {
 	})
 }
 
+const generateRoute = (({ tableName }) => {
+	let route = tableName.toLowerCase() + "s"
+
+	fs.writeFileSync(`src/routes/${tableName}.route.json`, JSON.stringify({
+		route, operations,
+	}), {
+		encoding: 'utf-8'
+	})
+})
+
 module.exports = {
 	generateModel,
+	generateRoute,
 	generateController,
 }

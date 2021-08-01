@@ -1,6 +1,8 @@
-// const fs = require('fs')
 const database = require('../assets/database.json')
-const { generateModel } = require('./generator')
+
+const {
+	addApiRoutes, generateModel, generateController, generateRoute
+} = require('./generator')
 
 let DB = database.map(table => {
 	table.marked = false
@@ -27,9 +29,15 @@ const generateFiles = (tables) => {
 			generateFiles(referencedTables)
 			table.marked = true
 			console.log('table generated => ', table.tableName);
+			// generate Models
 			generateModel(table)
+			// generate Controllores
+			generateController(table)
+			// generate Route
+			generateRoute(table)
 		}
 	})
 }
 
 generateFiles(DB)
+addApiRoutes(DB.map(({ tableName }) => tableName))

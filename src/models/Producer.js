@@ -10,14 +10,14 @@ Producer.init({
 		unique: false,
 		allowNull: false,
 		primaryKey: true
-	},	
+	},
 	CompanyName: {
 		key: 'FEmer16GAqACCAWz',
 		type: DataTypes.STRING(200),
 		unique: false,
 		allowNull: true,
 		primaryKey: false
-	},	
+	},
 	Country: {
 		key: 'lEmer16GAqACCAW0',
 		type: DataTypes.STRING(255),
@@ -32,4 +32,3 @@ Producer.init({
 })
 
 module.exports = Producer
-	

@@ -10,7 +10,7 @@ Movie.init({
 		unique: false,
 		allowNull: false,
 		primaryKey: true
-	},	
+	},
 	ProducerID: {
 		key: 'cEmer16GAqACCAWd',
 		type: DataTypes.INTEGER(10),
@@ -21,21 +21,21 @@ Movie.init({
 			key: 'ZEmer16GAqACCAWy',
 			model: 'Producer'
 		}
-	},	
+	},
 	Title: {
 		key: 'aEmer16GAqACCAWg',
 		type: DataTypes.STRING(255),
 		unique: false,
 		allowNull: true,
 		primaryKey: false
-	},	
+	},
 	Duration: {
 		key: '6Emer16GAqACCAWh',
 		type: DataTypes.INTEGER(10),
 		unique: false,
 		allowNull: true,
 		primaryKey: false
-	},	
+	},
 	Rating: {
 		key: '6Emer16GAqACCAWi',
 		type: DataTypes.CHAR(1),
@@ -49,4 +49,3 @@ Movie.init({
 })
 
 module.exports = Movie
-	

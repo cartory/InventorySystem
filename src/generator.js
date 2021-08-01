@@ -1,13 +1,13 @@
 const fs = require('fs')
 const database = require('../assets/database.json')
 
-const operations = [
-	"read",
-	"show",
-	"create",
-	"update",
-	"delete",
-]
+const operations = {
+	read: (route, index) => `router.get('/${route}s', controllers[${index}].all)`,
+	show: (route, index) => `router.get('/${route}s/:id', controllers[${index}].find)`,
+	create: (route, index) => `router.post('/${route}s', controllers[${index}].save)`,
+	update: (route, index) => `router.put('/${route}s/:id', controllers[${index}].save)`,
+	delete: (route, index) => `router.delete('/${route}s', controllers[${index}].destroy)`
+}
 
 const keysToDrop = [
 	'id', 'name', 'length',
@@ -84,17 +84,40 @@ const generateController = ({ tableName }) => {
 	})
 }
 
-const generateRoute = (({ tableName }) => {
-	let route = tableName.toLowerCase() + "s"
-
+const generateRoute = ({ tableName }) => {
 	fs.writeFileSync(`src/routes/${tableName}.route.json`, JSON.stringify({
-		route, operations,
+		route: tableName.toLowerCase() + 's', operations: Object.keys(operations),
 	}), {
 		encoding: 'utf-8'
 	})
-})
+}
+
+const addApiRoutes = (tableNames) => {
+	let apiRoutesFile = (''
+		+ "const { Router } = require('express')\n"
+		+ "const { addOperationRoutes } = require('./utils/routes.utils')\n\n"
+		+ "const controllers = [\n"
+		+ `${tableNames.map(tableName => {
+			return `\trequire('./controllers/${tableName}Controller')`
+		}).join(',\n')}\n]\n`
+		+ "const routes = [\n"
+		+ `${tableNames.map(tableName => {
+			return `\trequire('./routes/${tableName}.route.json')`
+		}).join(',\n')}\n]\n`
+		+ "const router = Router()\n\n"
+		+ "routes.forEach((route, index) => {\n"
+		+ "\taddOperationRoutes(router, controllers[index], route)\n})\n\n"
+		+ "module.exports = router"
+	)
+
+	fs.writeFileSync('src/api.routes.js', apiRoutesFile, {
+		encoding: 'utf-8'
+	})
+}
+
 
 module.exports = {
+	addApiRoutes,
 	generateModel,
 	generateRoute,
 	generateController,

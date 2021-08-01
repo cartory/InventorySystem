@@ -34,13 +34,22 @@ const getDataType = {
 }
 
 const getTableName = (foreignKey) => {
-	let k
+	let index = 0
 	return database
 		.filter(({ columns }) => !columns.every(({ key }) => {
-			k = key.split('@')
-			return k.pop() !== foreignKey
+			if (key.split('@').includes(foreignKey)) {
+				index = columns.findIndex(({ key }) => key.split('@').includes(foreignKey))
+				return false
+			}
+			
+			return true
 		}))
-		.map(({ tableName }) => [tableName, ...k])?.pop()
+		.map(({ tableName, columns }) => {
+			return [
+				tableName,
+				columns[index]['key'].split('@')[0],
+			]
+		})?.pop()
 }
 
 const generateModel = (table) => {

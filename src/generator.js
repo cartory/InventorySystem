@@ -32,7 +32,7 @@ const generateModel = (table) => {
 
 	modelFile += `class ${className} extends Model { }\n\n`
 
-	modelFile += `${className}.init({\n ${table.attribs.map((column) => {
+	modelFile += `${className}.init({\n ${table.columns.map((column) => {
 		let { name, length } = column
 
 		columnsToDrop.forEach(col => delete column[col])

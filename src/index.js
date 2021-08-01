@@ -7,15 +7,15 @@ let DB = database.map(table => {
 	return table
 })
 
-const getForeignKeys = ({ attribs }) => {
-	return attribs
+const getForeignKeys = ({ columns }) => {
+	return columns
 		.filter(column => column.foreignKey)
 		.map(({ foreignKey }) => foreignKey)
 }
 
 const getReferencedTables = (tables, foreignKeys) => {
-	return tables.filter(({ attribs }) => {
-		return attribs.filter(({ id }) => foreignKeys.includes(id)).length
+	return tables.filter(({ columns }) => {
+		return columns.filter(({ id }) => foreignKeys.includes(id)).length
 	})
 }
 

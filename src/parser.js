@@ -2,7 +2,7 @@ const fs = require('fs')
 const { Project } = require('../assets/database.json')
 
 let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
-	let attribs = table.ModelChildren.DBColumn.map(column => {
+	let columns = table.ModelChildren.DBColumn.map(column => {
 		let { ForeignKeyConstraints, DefaultValue, IdentityIncrement } = column
 		let json = {
 			id: column.Id,
@@ -28,7 +28,7 @@ let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 	return {
 		tableId: table.Id,
 		tableName: table.Name,
-		attribs,
+		columns,
 	};
 })
 

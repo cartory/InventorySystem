@@ -1,43 +1,16 @@
-const database = require('../assets/database.json')
+const app = require('./app')
 
-const {
-	addApiRoutes, generateModel, generateController, generateRoute
-} = require('./generator')
+require('dotenv').config()
 
-let DB = database.map(table => {
-	table.marked = false
-	return table
-})
+const run = () => {
+	if (process.env.NODE_ENV === 'development') {
+		app.use(require('morgan')('dev'))
+	}
 
-const getForeignKeys = ({ columns }) => {
-	return columns
-		.filter(column => column.foreignKey)
-		.map(({ foreignKey }) => foreignKey)
-}
-
-const getReferencedTables = (tables, foreignKeys) => {
-	return tables.filter(({ columns }) => {
-		return columns.filter(({ id }) => foreignKeys.includes(id)).length
+	app.listen(process.env.PORT || 8000, () => {
+		console.log(`Server running on \x1b[33mhttp://${process.env.HOST}:${process.env.PORT}\x1b[0m`);
+		console.log(new Date());
 	})
 }
 
-const generateFiles = (tables) => {
-	tables.forEach(table => {
-		if (!table.marked) {
-			let foreignKeys = getForeignKeys(table)
-			let referencedTables = getReferencedTables(DB, foreignKeys)
-			generateFiles(referencedTables)
-			table.marked = true
-			console.log('table generated => ', table.tableName);
-			// generate Models
-			generateModel(table)
-			// generate Controllores
-			generateController(table)
-			// generate Route
-			generateRoute(table)
-		}
-	})
-}
-
-generateFiles(DB)
-addApiRoutes(DB.map(({ tableName }) => tableName))
+run()

@@ -1,10 +1,9 @@
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../orm/sequelize.config.js')
+const sequelize = require('../utils/sequelize.instance.js')
 
 class Customer extends Model { }
 
-Customer.init({
-	ID: {
+Customer.init({	ID: {
 		key: 'mEmer16GAqACCAWk',
 		type: DataTypes.INTEGER(10),
 		unique: false,
@@ -46,9 +45,6 @@ Customer.init({
 		allowNull: true,
 		primaryKey: false
 	}
-}, {
-	sequelize,
-	tableName: 'Customer'
-})
+}, { sequelize, tableName: 'Customer' })
 
 module.exports = Customer

@@ -1,10 +1,9 @@
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../orm/sequelize.config.js')
+const sequelize = require('../utils/sequelize.instance.js')
 
 class Producer extends Model { }
 
-Producer.init({
-	ID: {
+Producer.init({	ID: {
 		key: 'ZEmer16GAqACCAWy',
 		type: DataTypes.INTEGER(10),
 		unique: false,
@@ -26,9 +25,6 @@ Producer.init({
 		primaryKey: false,
 		defaultValue: 'Bolivia'
 	}
-}, {
-	sequelize,
-	tableName: 'Producer'
-})
+}, { sequelize, tableName: 'Producer' })
 
 module.exports = Producer

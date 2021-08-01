@@ -10,7 +10,7 @@ Customer_Movie.init({	MovieID: {
 		allowNull: false,
 		primaryKey: true,
 		references: {
-			key: 'Country',
+			key: 'ID',
 			model: 'Movie'
 		}
 	},
@@ -21,7 +21,7 @@ Customer_Movie.init({	MovieID: {
 		allowNull: false,
 		primaryKey: true,
 		references: {
-			key: 'Country',
+			key: 'ID',
 			model: 'Customer'
 		}
 	},

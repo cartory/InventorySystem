@@ -26,12 +26,8 @@ const generateFiles = (tables) => {
 			let referencedTables = getReferencedTables(DB, foreignKeys)
 			generateFiles(referencedTables)
 			table.marked = true
-			console.log(table.tableName);
-			// generate Model
+			console.log('table generated => ', table.tableName);
 			generateModel(table)
-			// generate Controller
-			// generate Route
-			// generate View
 		}
 	})
 }

@@ -3,11 +3,11 @@ const { Project } = require('../assets/database.json')
 
 let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 	let columns = table.ModelChildren.DBColumn.map(column => {
-		let { Id, ForeignKeyConstraints, DefaultValue, IdentityIncrement } = column
+		let { Id, Name, ForeignKeyConstraints, DefaultValue, IdentityIncrement } = column
 		let json = {
 			id: Id,
-			key: `'${Id}'`,
-			name: column.Name,
+			key: `${Name}@${Id}`,
+			name: Name,
 			type: column.Type,
 			length: column.Length,
 			unique: column.Unique,

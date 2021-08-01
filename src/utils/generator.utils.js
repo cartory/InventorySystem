@@ -34,9 +34,13 @@ const getDataType = {
 }
 
 const getTableName = (foreignKey) => {
+	let k
 	return database
-		.filter(({ columns }) => columns.filter(({ id }) => id === foreignKey))
-		.map(({ tableName }) => tableName)?.pop()
+		.filter(({ columns }) => !columns.every(({ key }) => {
+			k = key.split('@')
+			return k.pop() !== foreignKey
+		}))
+		.map(({ tableName }) => [tableName, ...k])?.pop()
 }
 
 const generateModel = (table) => {
@@ -54,8 +58,14 @@ const generateModel = (table) => {
 					if (k === 'type') {
 						return `\t\t${k}: ${getDataType[column[k]](length)}`
 					}
+
+					if (k === 'key') {
+						return `\t\t${k}: '${column[k].split('@')[0]}'`
+					}
+
 					if (k === 'foreignKey') {
-						return `\t\treferences: {\n\t\t\tkey: '${column[k]}',\n\t\t\tmodel: '${getTableName(column[k])}'\n\t\t}`
+						let [tableName, key] = getTableName(column[k])
+						return `\t\treferences: {\n\t\t\tkey: '${key}',\n\t\t\tmodel: '${tableName}'\n\t\t}`
 					}
 					return `\t\t${k}: ${column[k]}`
 				}).join(',\n')}\n\t}`

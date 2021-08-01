@@ -57,13 +57,26 @@ const generateModel = (table) => {
 		+ `module.exports = ${className}`
 	)
 
-
-
 	fs.writeFileSync(`src/models/${className}.js`, modelFile, {
 		encoding: 'utf-8'
 	})
 }
 
+const generateController = ({ tableName }) => {
+	let controllerFile = (''
+		+ "const { Controller } = require('../utils/controller')\n"
+		+ `const ${tableName} = require('../models/${tableName}')\n\n`
+		+ `class ${tableName}Controller extends Controller {
+			\n\tconstructor() {\r\t\tsuper(${tableName})\r\t}\r}\n\n`
+		+ `module.exports = new ${tableName}Controller()`
+	)
+
+	fs.writeFileSync(`src/controllers/${tableName}Controller.js`, controllerFile, {
+		encoding: 'utf-8'
+	})
+}
+
 module.exports = {
-	generateModel
+	generateModel,
+	generateController,
 }

@@ -1,0 +1,10 @@
+{
+	"route": "customer_movies",
+	"operations": [
+		"read",
+		"show",
+		"create",
+		"update",
+		"delete"
+	]
+}

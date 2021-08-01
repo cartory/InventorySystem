@@ -3,19 +3,27 @@ const { Project } = require('../assets/database.json')
 
 let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 	let attribs = table.ModelChildren.DBColumn.map(column => {
-		let { ForeignKeyConstraints } = column
-		return {
+		let { ForeignKeyConstraints, DefaultValue, IdentityIncrement } = column
+		let json = {
 			id: column.Id,
 			name: column.Name,
 			type: column.Type,
 			length: column.Length,
 			unique: column.Unique,
-			nullable: column.Nullable,
+			allowNull: column.Nullable,
 			primaryKey: column.PrimaryKey,
-			defaultValue: column.DefaultValue,
-			identityIncrement: column.IdentityIncrement,
+			defaultValue: DefaultValue ? `'${DefaultValue}'` : null,
+			autoIncrement: IdentityIncrement < 0 ? null : true,
+			autoIncrementIdentity: IdentityIncrement < 0 ? null : true,
 			foreignKey: ForeignKeyConstraints?.DBForeignKeyConstraint['RefColumn'],
 		};
+
+		for (const key in json) {
+			if (json[key] === null || json[key] === undefined) {
+				delete json[key]
+			}
+		}
+		return json
 	})
 	return {
 		tableId: table.Id,

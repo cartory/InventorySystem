@@ -21,7 +21,7 @@ class Controller {
 	 * @param {Request} _ 
 	 * @param {Response} res
 	 */
-	async all(_, res) {
+	all = async (_, res) => {
 		let t = await sequelizeInstance.transaction({ autocommit: true })
 		return this.model
 			.findAll()
@@ -38,7 +38,7 @@ class Controller {
 	 * @param {Request} req 
 	 * @param {Response} res 
 	 */
-	async find(req, res) {
+	find = async (req, res) => {
 		let t = await sequelizeInstance.transaction({ autocommit: true })
 		return this.model
 			.findOne({ where: { id: req.params.id }, transaction: t })
@@ -55,7 +55,7 @@ class Controller {
 	 * @param {Request} req 
 	 * @param {Response} res
 	 */
-	async save(req, res) {
+	save = async (req, res) => {
 		let t = await sequelizeInstance.transaction({ autocommit: true })
 
 		return this.model
@@ -73,7 +73,7 @@ class Controller {
 	 * @param {Request} req 
 	 * @param {Response} res 
 	 */
-	async destroy(req, res) {
+	destroy = async (req, res) => {
 		let t = await sequelizeInstance.transaction({ autocommit: true })
 
 		return this.model

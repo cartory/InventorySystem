@@ -7,6 +7,7 @@
     "test": "exit(0)",
     "start": "npm run parse && node src/index",
     "serve": "nodemon src/index",
+    "gen": "npm run parse && node src/generator",
     "parse": "xml2js assets/.xml -o .json && sed 's/@_//g' .json > assets/database.json && rm .json && node src/parser"
   },
   "repository": {
@@ -39,6 +40,7 @@
     ]
   },
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "sequelize": "^6.6.5"
   }

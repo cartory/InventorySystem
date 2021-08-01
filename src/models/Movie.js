@@ -4,39 +4,39 @@ const sequelize = require('../utils/sequelize.instance.js')
 class Movie extends Model { }
 
 Movie.init({	ID: {
-		key: 'UEmer16GAqACCAWc',
+		key: 'ID',
 		type: DataTypes.INTEGER(10),
 		unique: false,
 		allowNull: false,
 		primaryKey: true
 	},
 	ProducerID: {
-		key: 'cEmer16GAqACCAWd',
+		key: 'ProducerID',
 		type: DataTypes.INTEGER(10),
 		unique: false,
 		allowNull: false,
 		primaryKey: false,
 		references: {
-			key: 'ZEmer16GAqACCAWy',
+			key: 'ID',
 			model: 'Producer'
 		}
 	},
 	Title: {
-		key: 'aEmer16GAqACCAWg',
+		key: 'Title',
 		type: DataTypes.STRING(255),
 		unique: false,
 		allowNull: true,
 		primaryKey: false
 	},
 	Duration: {
-		key: '6Emer16GAqACCAWh',
+		key: 'Duration',
 		type: DataTypes.INTEGER(10),
 		unique: false,
 		allowNull: true,
 		primaryKey: false
 	},
 	Rating: {
-		key: '6Emer16GAqACCAWi',
+		key: 'Rating',
 		type: DataTypes.CHAR(1),
 		unique: false,
 		allowNull: true,

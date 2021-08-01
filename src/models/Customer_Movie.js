@@ -14,7 +14,7 @@ Customer_Movie.init({
 			key: 'UEmer16GAqACCAWc',
 			model: 'Producer'
 		}
-	},
+	},	
 	CustomerID: {
 		key: 'REmer16GAqACCAWt',
 		type: DataTypes.INTEGER(10),
@@ -25,14 +25,14 @@ Customer_Movie.init({
 			key: 'mEmer16GAqACCAWk',
 			model: 'Producer'
 		}
-	},
+	},	
 	Date_Rented: {
 		key: 'xEmer16GAqACCAWv',
 		type: DataTypes.TIME,
 		unique: false,
 		allowNull: true,
 		primaryKey: false
-	},
+	},	
 	Due_Date: {
 		key: 'JEmer16GAqACCAWw',
 		type: DataTypes.TIME,
@@ -46,3 +46,4 @@ Customer_Movie.init({
 })
 
 module.exports = Customer_Movie
+	

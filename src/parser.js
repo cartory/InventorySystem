@@ -1,5 +1,17 @@
 const fs = require('fs')
-const { Project } = require('../assets/database.json')
+let DB = require('../assets/database.json')
+
+let rawJsonDB = JSON.stringify(DB)
+
+while (rawJsonDB.match(/@_/gm)) {
+	rawJsonDB = rawJsonDB.replace(/@_/gm, '')
+}
+
+fs.writeFileSync('assets/database.json', rawJsonDB, {
+	encoding: 'utf-8'
+})
+
+const { Project } = JSON.parse(rawJsonDB)
 
 const isAutoIncrement = (identityIncrement, idGenerator) => {
 	return identityIncrement < 0 ? idGenerator === 'increment' : true

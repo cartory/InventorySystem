@@ -1,9 +1,19 @@
 const fs = require('fs')
 const { Project } = require('../assets/database.json')
 
-let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
+const isAutoIncrement = (identityIncrement, idGenerator) => {
+	return identityIncrement < 0 ? idGenerator === 'increment' : true
+}
+
+let database = Project.Models.DBTable.map(table => {
 	let columns = table.ModelChildren.DBColumn.map(column => {
-		let { Id, Name, ForeignKeyConstraints, DefaultValue, IdentityIncrement } = column
+		let {
+			Id, Name,
+			IdGenerator,
+			ForeignKeyConstraints,
+			DefaultValue, IdentityIncrement,
+		} = column
+
 		let json = {
 			id: Id,
 			key: `${Name}@${Id}`,
@@ -14,8 +24,8 @@ let database = Project.Models.Model.ModelChildren.DBTable.map(table => {
 			allowNull: column.Nullable,
 			primaryKey: column.PrimaryKey,
 			defaultValue: DefaultValue ? `'${DefaultValue}'` : null,
-			autoIncrement: IdentityIncrement < 0 ? null : true,
-			autoIncrementIdentity: IdentityIncrement < 0 ? null : true,
+			autoIncrement: isAutoIncrement(IdentityIncrement, IdGenerator),
+			autoIncrementIdentity: isAutoIncrement(IdentityIncrement, IdGenerator),
 			foreignKey: ForeignKeyConstraints?.DBForeignKeyConstraint['RefColumn'],
 		};
 

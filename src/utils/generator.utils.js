@@ -14,10 +14,10 @@ const keysToDrop = [
 ]
 
 const getDataType = {
+	int4: (_) => `DataTypes.TINYINT`,
 	byte: (_) => `DataTypes.TINYINT`,
 	boolean: (_) => `DataTypes.BOOLEAN`,
 	char: (length) => `DataTypes.CHAR(${length})`,
-
 	float: (length) => `DataTypes.FLOAT(${length})`,
 	double: (length) => `DataTypes.DOUBLE(${length})`,
 
@@ -41,7 +41,7 @@ const getTableName = (foreignKey) => {
 				index = columns.findIndex(({ key }) => key.split('@').includes(foreignKey))
 				return false
 			}
-			
+
 			return true
 		}))
 		.map(({ tableName, columns }) => {

@@ -29,7 +29,7 @@
     "nodemon": "^2.0.12"
   },
   "nodemonConfig": {
-    "delay": 1000,
+    "delay": 1500,
     "verbose": false,
     "ignore": [
       ".git",

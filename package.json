@@ -1,0 +1,34 @@
+{
+	"name": "videorentalsystem",
+	"version": "1.0.0",
+	"description": "videoRentalSystem from VP and library",
+	"main": "index.js",
+	"scripts": {
+		"test": "exit(0)",
+		"start": "npm run gen && node src/index",
+		"dev": "npm run gen && nodemon src/index",
+		"drop": "rm -rf src/controllers src/models src/routes",
+		"mkdir": "mkdir src/controllers src/models src/routes",
+		"gen": "npm run parse && npm run drop && npm run mkdir && node src/generator",
+		"parse": "xml2js assets/.xml -o assets/database.json && node src/parser",
+		"build": "webpack && cp heroku.json dist/package.json && cp .env.sample dist/.env",
+		"deploy": "npm run build && gh-pages -d dist",
+		"heroku-postbuild": "echo Skip builds on Heroku"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/cartory/videoRentalSystem.git"
+	},
+	"author": "cartory",
+	"license": "ISC",
+	"bugs": {
+		"url": "https://github.com/cartory/videoRentalSystem/issues"
+	},
+	"homepage": "https://github.com/cartory/videoRentalSystem#readme",
+	"dependencies": {
+		"cors": "^2.8.5",
+		"express": "^4.17.1",
+		"mysql2": "^2.2.5",
+		"sequelize": "^6.6.5"
+	}
+}

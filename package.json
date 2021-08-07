@@ -10,7 +10,9 @@
     "drop": "rm -rf src/controllers src/models src/routes",
     "mkdir": "mkdir src/controllers src/models src/routes",
     "gen": "npm run parse && npm run drop && npm run mkdir && node src/generator",
-    "parse": "xml2js assets/.xml -o assets/database.json && node src/parser"
+    "parse": "xml2js assets/.xml -o assets/database.json && node src/parser",
+    "build": "webpack && cp heroku.json dist/package.json && cp.ennv.sample dist/.env",
+    "deploy": "npm run build && gh-pages -d dist"
   },
   "repository": {
     "type": "git",
@@ -22,12 +24,6 @@
     "url": "https://github.com/cartory/videoRentalSystem/issues"
   },
   "homepage": "https://github.com/cartory/videoRentalSystem#readme",
-  "devDependencies": {
-    "dotenv": "^10.0.0",
-    "fast-xml-parser": "^3.19.0",
-    "morgan": "^1.10.0",
-    "nodemon": "^2.0.12"
-  },
   "nodemonConfig": {
     "delay": 1500,
     "verbose": false,
@@ -47,5 +43,15 @@
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
     "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "dotenv": "^10.0.0",
+    "fast-xml-parser": "^3.19.0",
+    "gh-pages": "^3.2.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^2.0.12",
+    "webpack": "^5.49.0",
+    "webpack-cli": "^4.7.2",
+    "webpack-node-externals": "^3.0.0"
   }
 }

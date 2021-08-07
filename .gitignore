@@ -1,8 +1,15 @@
 # DIRS
 dist/
+
+seeders/
+
+models/
 routes/
+controllers/
+
 node_modules/
 
 # FILES
 .env
+api.routes.js
 database.json

@@ -118,11 +118,11 @@ const addApiRoutes = (tableNames) => {
 		+ "const controllers = [\n"
 		+ `${tableNames.map(tableName => {
 			return `\trequire('./controllers/${tableName}Controller')`
-		}).join(',\n')}\n]\n`
+		}).join(',\n')}\n]\n\n`
 		+ "const routes = [\n"
 		+ `${tableNames.map(tableName => {
 			return `\trequire('./routes/${tableName}.route.json')`
-		}).join(',\n')}\n]\n`
+		}).join(',\n')}\n]\n\n`
 		+ "const router = Router()\n\n"
 		+ "routes.forEach((route, index) => {\n"
 		+ "\taddOperationRoutes(router, controllers[index], route)\n})\n\n"

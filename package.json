@@ -42,10 +42,10 @@
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mysql2": "^2.2.5",
-    "sequelize": "^6.6.5"
+    "sequelize": "^6.6.5",
+    "dotenv": "^10.0.0"
   },
   "devDependencies": {
-    "dotenv": "^10.0.0",
     "fast-xml-parser": "^3.19.0",
     "gh-pages": "^3.2.3",
     "morgan": "^1.10.0",

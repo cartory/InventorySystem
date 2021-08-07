@@ -10,12 +10,12 @@ const { Project } = JSON.parse(rawJsonDB)
 fs.writeFileSync('assets/database.json', rawJsonDB, { encoding: 'utf-8' })
 
 const isAutoIncrement = (identityIncrement, idGenerator) => {
-	return identityIncrement < 0 ? idGenerator === 'increment' : true
+	return identityIncrement < 0 && idGenerator === 'increment' ? true : null
 }
 
 const keyValues = {
-	DBTable: Project?.Models,
-	Model: Project?.Models?.Model?.ModelChildren,
+	DBTable: Project.Models,
+	Model: Project.Models.Model.ModelChildren,
 }
 
 const getDBTable = ({ Models }) => {
@@ -38,9 +38,9 @@ let database = getDBTable(Project).map(table => {
 			name: Name,
 			type: column.Type,
 			length: column.Length,
-			unique: column.Unique,
+			unique: column.Unique ? true : null,
 			allowNull: column.Nullable,
-			primaryKey: column.PrimaryKey,
+			primaryKey: column.PrimaryKey ? true : null,
 			defaultValue: DefaultValue ? `'${DefaultValue}'` : null,
 			autoIncrement: isAutoIncrement(IdentityIncrement, IdGenerator),
 			autoIncrementIdentity: isAutoIncrement(IdentityIncrement, IdGenerator),

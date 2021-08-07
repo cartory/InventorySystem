@@ -5,7 +5,17 @@ const isAutoIncrement = (identityIncrement, idGenerator) => {
 	return identityIncrement < 0 ? idGenerator === 'increment' : true
 }
 
-let database = Project.Models.DBTable.map(table => {
+const keyValues = {
+	DBTable: Project.Models,
+	Model: Project.Models.Model.ModelChildren,
+}
+
+const getDBTable = ({ Models }) => {
+	let key = Object.keys(Models).find(k => keyValues[k])
+	return keyValues[key].DBTable
+}
+
+let database = getDBTable(Project).map(table => {
 	let columns = table.ModelChildren.DBColumn.map(column => {
 		let {
 			Id, Name,

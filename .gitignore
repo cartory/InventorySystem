@@ -11,5 +11,5 @@ node_modules/
 
 # FILES
 .env
-api.routes.js
+api.routes
 database.json

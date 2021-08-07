@@ -5,7 +5,7 @@
 	"main": "index.js",
 	"scripts": {
 		"test": "exit(0)",
-		"start": "node index",
+		"start": "node index.js",
 		"dev": "npm run gen && nodemon src/index",
 		"drop": "rm -rf src/controllers src/models src/routes",
 		"mkdir": "mkdir src/controllers src/models src/routes",

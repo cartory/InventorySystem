@@ -1,25 +1,21 @@
 const fs = require('fs')
-let DB = require('../assets/database.json')
+const DB = require('../assets/database.json')
 
 let rawJsonDB = JSON.stringify(DB)
 
-while (rawJsonDB.match(/@_/gm)) {
-	rawJsonDB = rawJsonDB.replace(/@_/gm, '')
-}
-
-fs.writeFileSync('assets/database.json', rawJsonDB, {
-	encoding: 'utf-8'
-})
+rawJsonDB = rawJsonDB.replace(/@_/igm, '')
 
 const { Project } = JSON.parse(rawJsonDB)
+
+fs.writeFileSync('assets/database.json', rawJsonDB, { encoding: 'utf-8' })
 
 const isAutoIncrement = (identityIncrement, idGenerator) => {
 	return identityIncrement < 0 ? idGenerator === 'increment' : true
 }
 
 const keyValues = {
-	DBTable: Project.Models,
-	Model: Project.Models.Model.ModelChildren,
+	DBTable: Project?.Models,
+	Model: Project?.Models?.Model?.ModelChildren,
 }
 
 const getDBTable = ({ Models }) => {

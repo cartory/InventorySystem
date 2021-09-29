@@ -16,12 +16,17 @@ const keysToDrop = [
 const getDataType = {
 	int4: (_) => `DataTypes.TINYINT`,
 	byte: (_) => `DataTypes.TINYINT`,
+	
+	bit: (_) => `DataTypes.BOOLEAN`,
 	boolean: (_) => `DataTypes.BOOLEAN`,
+	
 	char: (length) => `DataTypes.CHAR(${length})`,
 	float: (length) => `DataTypes.FLOAT(${length})`,
 	double: (length) => `DataTypes.DOUBLE(${length})`,
 
 	int: (length) => `DataTypes.INTEGER(${length})`,
+	integer: (length) => `DataTypes.INTEGER(${length})`,
+	
 	long: (length) => `DataTypes.BIGINT(${length})`,
 	short: (length) => `DataTypes.SMALLINT( ${length})`,
 

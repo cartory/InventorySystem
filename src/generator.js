@@ -15,20 +15,19 @@ const getForeignKeys = ({ columns }) => {
 		.map(({ foreignKey }) => foreignKey)
 }
 
-const getReferencedTables = (tables, foreignKeys) => {
+const getReferencedTables = (tables = [], foreignKeys) => {
 	return tables.filter(({ columns }) => {
-		return columns.filter(({ id }) => foreignKeys.includes(id)).length
+		return columns.some(({ id }) => foreignKeys.includes(id))
 	})
 }
 
-const generateFiles = (tables) => {
+const generateFiles = (tables = []) => {
 	tables.forEach(table => {
 		if (!table.marked) {
+			table.marked = true
 			let foreignKeys = getForeignKeys(table)
 			let referencedTables = getReferencedTables(DB, foreignKeys)
 			generateFiles(referencedTables)
-			table.marked = true
-			console.log('table generated => ', table.tableName);
 			// generate Models
 			generateModel(table)
 			// generate Controllers

@@ -2,17 +2,19 @@ const { Router } = require('express')
 const { addOperationRoutes } = require('./utils/routes.utils')
 
 const controllers = [
-	require('./controllers/MovieController'),
-	require('./controllers/CustomerController'),
-	require('./controllers/Customer_MovieController'),
-	require('./controllers/ProducerController')
+	require('./controllers/PlaceController'),
+	require('./controllers/UserController'),
+	require('./controllers/TaskController'),
+	require('./controllers/User_PlaceController'),
+	require('./controllers/User_TaskController')
 ]
 
 const routes = [
-	require('./routes/Movie.route.json'),
-	require('./routes/Customer.route.json'),
-	require('./routes/Customer_Movie.route.json'),
-	require('./routes/Producer.route.json')
+	require('./routes/Place.route.json'),
+	require('./routes/User.route.json'),
+	require('./routes/Task.route.json'),
+	require('./routes/User_Place.route.json'),
+	require('./routes/User_Task.route.json')
 ]
 
 const router = Router()

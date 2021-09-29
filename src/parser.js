@@ -14,13 +14,13 @@ const isAutoIncrement = (identityIncrement, idGenerator) => {
 }
 
 const keyValues = {
-	DBTable: Project.Models,
-	Model: Project.Models.Model.ModelChildren,
+	DBTable: (models) => models,
+	Model: (models) => models.Model.ModelChildren,
 }
 
 const getDBTable = ({ Models }) => {
 	let key = Object.keys(Models).find(k => keyValues[k])
-	return keyValues[key].DBTable
+	return Models[key]
 }
 
 let database = getDBTable(Project).map(table => {

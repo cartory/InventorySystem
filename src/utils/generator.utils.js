@@ -85,7 +85,7 @@ const generateModel = (table) => {
 				}).join(',\n')}\n\t}`
 			}).join(',\n')
 		}\n`
-		+ `}, { sequelize, tableName: '${table.tableName}' })\n\n`
+		+ `}, { \r\tsequelize, \r\ttableName: '${table.tableName}'\r})\n\n`
 		+ `module.exports = ${className}`
 	)
 

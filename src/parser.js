@@ -8,6 +8,7 @@ rawJsonDB = rawJsonDB.replace(/@_/igm, '')
 const { Project } = JSON.parse(rawJsonDB)
 
 fs.writeFileSync('assets/database.json', rawJsonDB, { encoding: 'utf-8' })
+// fs.writeFileSync('assets/db.json', rawJsonDB, { encoding: 'utf-8' })
 
 const isAutoIncrement = (identityIncrement, idGenerator) => {
 	return identityIncrement < 0 && idGenerator === 'increment' ? true : null

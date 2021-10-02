@@ -3,9 +3,9 @@ dist/
 
 seeders/
 
-models/
-routes/
-controllers/
+# models/
+# routes/
+# controllers/
 
 node_modules/
 

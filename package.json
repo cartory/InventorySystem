@@ -7,6 +7,7 @@
     "test": "exit(0)",
     "start": "node src/index",
     "dev": "nodemon src/index",
+    "seed": "node seeders/main_seeder",
     "drop": "rm -rf src/controllers src/models src/routes",
     "mkdir": "mkdir src/controllers src/models src/routes",
     "gen": "npm run parse && npm run drop && npm run mkdir && node src/generator",

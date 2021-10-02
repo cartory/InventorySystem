@@ -1,10 +1,10 @@
 const { Model } = require('sequelize')
 const { Request, Response } = require('express')
-const sequelizeInstance = require('./sequelize.instance')
+const sequelizeInstance = require('./sequelize')
 
 const defaultErrorMessage = {
 	status: 500,
-	message: '⚠️ Ups!, Something goes Wrong !!⚠️'
+	message: '⚠️ Oops!, Something goes Wrong !!⚠️'
 }
 
 class Controller {
@@ -14,6 +14,7 @@ class Controller {
 	 */
 	constructor(model) {
 		this.model = model
+		this.defaultErrorMessage = defaultErrorMessage
 	}
 
 	/**
@@ -22,13 +23,11 @@ class Controller {
 	 * @param {Response} res
 	 */
 	all = async (_, res) => {
-		let t = await sequelizeInstance.transaction({ autocommit: true })
 		return this.model
 			.findAll()
 			.then(data => res.status(200).json(data))
 			.catch(async err => {
 				console.error(err)
-				await t.rollback()
 				return res.status(500).json(defaultErrorMessage)
 			})
 	}
@@ -39,13 +38,11 @@ class Controller {
 	 * @param {Response} res 
 	 */
 	find = async (req, res) => {
-		let t = await sequelizeInstance.transaction({ autocommit: true })
 		return this.model
-			.findOne({ where: { id: req.params.id }, transaction: t })
+			.findOne({ where: { id: req.params.id } })
 			.then(data => res.status(200).json(data))
 			.catch(async err => {
 				console.error(err)
-				await t.rollback()
 				return res.status(500).json(defaultErrorMessage)
 			})
 	}

@@ -34,6 +34,8 @@ const generateFiles = (tables = []) => {
 			generateController(table)
 			// generate Routes
 			generateRoute(table)
+
+			console.log('table generated => ', table.tableName);
 		}
 	})
 }

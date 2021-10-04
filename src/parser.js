@@ -32,7 +32,7 @@ let database = getDBTable(Project).map(table => {
 			ForeignKeyConstraints,
 			DefaultValue, IdentityIncrement,
 		} = column
-
+		
 		let json = {
 			id: Id,
 			key: `${Name}@${Id}`,
@@ -49,7 +49,7 @@ let database = getDBTable(Project).map(table => {
 		};
 
 		for (const key in json) {
-			if (json[key] === null || json[key] === undefined) {
+			if (!json[key]) { 
 				delete json[key]
 			}
 		}
@@ -58,6 +58,7 @@ let database = getDBTable(Project).map(table => {
 	return {
 		tableId: table.Id,
 		tableName: table.Name,
+		dataModel: table.DataModel,
 		columns,
 	};
 })

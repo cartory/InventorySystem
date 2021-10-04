@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const Task = require('../models/Task')
+const { Task } = require('../utils/models')
 
 class TaskController extends Controller {
 	constructor() {		super(Task)	}}

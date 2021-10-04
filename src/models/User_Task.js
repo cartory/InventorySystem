@@ -1,16 +1,14 @@
-const { Model, DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-class User_Task extends Model { }
-
-User_Task.init({	Userid: {
+module.exports = sequelize.define('User_Task', {	Userid: {
 		key: 'Userid',
 		type: DataTypes.INTEGER(10),
 		primaryKey: true,
 		references: {
 			key: 'id',
 			model: 'User'
-		}
+		},
 	},
 	Taskid: {
 		key: 'Taskid',
@@ -19,16 +17,14 @@ User_Task.init({	Userid: {
 		references: {
 			key: 'id',
 			model: 'Task'
-		}
+		},
 	},
 	startDate: {
 		key: 'startDate',
-		type: DataTypes.DATE
+		type: DataTypes.DATE,
 	},
 	endDate: {
 		key: 'endDate',
-		type: DataTypes.DATE
+		type: DataTypes.DATE,
 	}
-}, { 	sequelize, 	tableName: 'User_Task',	deletedAt: false,	timestamps: false,})
-
-module.exports = User_Task
+}, { 	tableName: 'User_Task',	deletedAt: false,	timestamps: false,})

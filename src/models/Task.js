@@ -1,31 +1,29 @@
-const { Model, DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-class Task extends Model { }
-
-Task.init({	id: {
+module.exports = sequelize.define('Task', {	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(10),
 		primaryKey: true,
 		autoIncrement: true,
-		autoIncrementIdentity: true
+		autoIncrementIdentity: true,
 	},
 	name: {
 		key: 'name',
-		type: DataTypes.STRING(50)
+		type: DataTypes.STRING(50),
 	},
 	description: {
 		key: 'description',
 		type: DataTypes.STRING(255),
-		allowNull: true
+		allowNull: true,
 	},
 	deadLine: {
 		key: 'deadLine',
-		type: DataTypes.DATE
+		type: DataTypes.DATE,
 	},
 	status: {
 		key: 'status',
-		type: DataTypes.BOOLEAN
+		type: DataTypes.BOOLEAN,
 	},
 	Placeid: {
 		key: 'Placeid',
@@ -34,8 +32,6 @@ Task.init({	id: {
 		references: {
 			key: 'id',
 			model: 'Place'
-		}
+		},
 	}
-}, { 	sequelize, 	tableName: 'Task',	deletedAt: true,	timestamps: true,})
-
-module.exports = Task
+}, { 	tableName: 'Task',	deletedAt: true,	timestamps: true,})

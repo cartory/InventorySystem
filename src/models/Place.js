@@ -1,28 +1,26 @@
-const { Model, DataTypes } = require('sequelize')
+const { DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-class Place extends Model { }
-
-Place.init({	id: {
+module.exports = sequelize.define('Place', {	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(10),
 		primaryKey: true,
 		autoIncrement: true,
-		autoIncrementIdentity: true
+		autoIncrementIdentity: true,
 	},
 	code: {
 		key: 'code',
 		type: DataTypes.STRING(20),
-		unique: true
+		unique: true,
 	},
 	name: {
 		key: 'name',
-		type: DataTypes.STRING(255)
+		type: DataTypes.STRING(255),
 	},
 	description: {
 		key: 'description',
 		type: DataTypes.STRING(255),
-		allowNull: true
+		allowNull: true,
 	},
 	Typeid: {
 		key: 'Typeid',
@@ -30,13 +28,11 @@ Place.init({	id: {
 		references: {
 			key: 'id',
 			model: 'Type'
-		}
+		},
 	},
 	photoUrl: {
 		key: 'photoUrl',
 		type: DataTypes.STRING(255),
-		allowNull: true
+		allowNull: true,
 	}
-}, { 	sequelize, 	tableName: 'Place',	deletedAt: true,	timestamps: true,})
-
-module.exports = Place
+}, { 	tableName: 'Place',	deletedAt: true,	timestamps: true,})

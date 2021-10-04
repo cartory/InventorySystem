@@ -3,11 +3,9 @@ const sequelize = require('../utils/sequelize')
 
 class User_Place extends Model { }
 
-User_Place.init({
-	Userid: {
+User_Place.init({	Userid: {
 		key: 'Userid',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		references: {
 			key: 'id',
@@ -17,7 +15,6 @@ User_Place.init({
 	Placeid: {
 		key: 'Placeid',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		references: {
 			key: 'id',
@@ -26,27 +23,20 @@ User_Place.init({
 	},
 	startTime: {
 		key: 'startTime',
-		type: DataTypes.INTEGER(5),
-		allowNull: false
+		type: DataTypes.INTEGER(5)
 	},
 	endTime: {
 		key: 'endTime',
-		type: DataTypes.INTEGER(5),
-		allowNull: false
+		type: DataTypes.INTEGER(5)
 	},
 	startDate: {
 		key: 'startDate',
-		type: DataTypes.DATE,
-		allowNull: false
+		type: DataTypes.DATE
 	},
 	endDate: {
 		key: 'endDate',
-		type: DataTypes.DATE,
-		allowNull: false
+		type: DataTypes.DATE
 	}
-}, { 
-	sequelize, 
-	tableName: 'User_Place'
-})
+}, { 	sequelize, 	tableName: 'User_Place',	deletedAt: false,	timestamps: false,})
 
 module.exports = User_Place

@@ -3,19 +3,16 @@ const sequelize = require('../utils/sequelize')
 
 class Task extends Model { }
 
-Task.init({
-	id: {
+Task.init({	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		autoIncrement: true,
 		autoIncrementIdentity: true
 	},
 	name: {
 		key: 'name',
-		type: DataTypes.STRING(50),
-		allowNull: false
+		type: DataTypes.STRING(50)
 	},
 	description: {
 		key: 'description',
@@ -24,13 +21,11 @@ Task.init({
 	},
 	deadLine: {
 		key: 'deadLine',
-		type: DataTypes.DATE,
-		allowNull: false
+		type: DataTypes.DATE
 	},
 	status: {
 		key: 'status',
-		type: DataTypes.BOOLEAN,
-		allowNull: false
+		type: DataTypes.BOOLEAN
 	},
 	Placeid: {
 		key: 'Placeid',
@@ -41,14 +36,6 @@ Task.init({
 			model: 'Place'
 		}
 	}
-}, {
-	sequelize,
-	tableName: 'Task'
-})
-
-let placeModel = sequelize.model('Place')
-
-placeModel.hasMany(Task, { as: 'tasks', foreignKey: 'Placeid' })
-Task.belongsTo(placeModel, { as: 'place', foreignKey: 'Placeid' })
+}, { 	sequelize, 	tableName: 'Task',	deletedAt: true,	timestamps: true,})
 
 module.exports = Task

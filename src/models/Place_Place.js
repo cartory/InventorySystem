@@ -1,32 +1,26 @@
 const { Model, DataTypes } = require('sequelize')
-const sequelize = require('../utils/sequelize.js')
+const sequelize = require('../utils/sequelize')
 
 class Place_Place extends Model { }
 
-Place_Place.init({
-	placeParent_id: {
+Place_Place.init({	placeParent_id: {
 		key: 'placeParent_id',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		references: {
 			key: 'id',
-			model: 'Place',
+			model: 'Place'
 		}
 	},
 	placeChild_id: {
 		key: 'placeChild_id',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		references: {
 			key: 'id',
 			model: 'Place'
 		}
 	}
-}, {
-	sequelize,
-	tableName: 'Place_Place'
-})
+}, { 	sequelize, 	tableName: 'Place_Place',	deletedAt: false,	timestamps: false,})
 
 module.exports = Place_Place

@@ -3,11 +3,9 @@ const sequelize = require('../utils/sequelize')
 
 class User extends Model { }
 
-User.init({
-	id: {
+User.init({	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(10),
-		allowNull: false,
 		primaryKey: true,
 		autoIncrement: true,
 		autoIncrementIdentity: true
@@ -15,25 +13,21 @@ User.init({
 	uid: {
 		key: 'uid',
 		type: DataTypes.STRING(50),
-		unique: true,
-		allowNull: false
+		unique: true
 	},
 	name: {
 		key: 'name',
-		type: DataTypes.STRING(50),
-		allowNull: false
+		type: DataTypes.STRING(50)
 	},
 	email: {
 		key: 'email',
 		type: DataTypes.STRING(50),
-		unique: true,
-		allowNull: false
+		unique: true
 	},
 	verifiedEmail: {
 		key: 'verifiedEmail',
 		type: DataTypes.STRING(50),
-		unique: true,
-		allowNull: false
+		unique: true
 	},
 	photoUrl: {
 		key: 'photoUrl',
@@ -42,27 +36,13 @@ User.init({
 	},
 	password: {
 		key: 'password',
-		type: DataTypes.STRING(255),
-		allowNull: false
+		type: DataTypes.STRING(255)
 	},
 	phoneNumber: {
 		key: 'phoneNumber',
 		type: DataTypes.STRING(20),
 		allowNull: true
 	}
-}, {
-	sequelize,
-	tableName: 'User'
-})
-
-let placeModel = sequelize.model('Place')
-
-User.belongsToMany(placeModel, {
-	through: 'User_Place', foreignKey: 'Userid', as: 'places', timestamps: false,
-})
-
-placeModel.belongsToMany(User, {
-	through: 'User_Place', foreignKey: 'Placeid', as: 'users', timestamps: false,
-})
+}, { 	sequelize, 	tableName: 'User',	deletedAt: true,	timestamps: true,})
 
 module.exports = User

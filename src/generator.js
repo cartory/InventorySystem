@@ -1,7 +1,7 @@
 const database = require('../assets/database.json')
 
 const {
-	addApiRoutes, generateModel, generateController, generateRoute
+	addApiRoutes, generateModel, generateController, generateRoute, addModelsRelationships
 } = require('./utils/generator.utils')
 
 let DB = database.map(table => {
@@ -30,10 +30,12 @@ const generateFiles = (tables = []) => {
 			generateFiles(referencedTables)
 			// generate Models
 			generateModel(table)
-			// generate Controllers
-			generateController(table)
-			// generate Routes
-			generateRoute(table)
+			if (table.dataModel === 'Physical') {
+				// generate Controllers
+				generateController(table)
+				// generate Routes
+				generateRoute(table)
+			}
 
 			console.log('table generated => ', table.tableName);
 		}
@@ -41,4 +43,14 @@ const generateFiles = (tables = []) => {
 }
 
 generateFiles(DB)
-addApiRoutes(DB.map(({ tableName }) => tableName))
+
+addApiRoutes(DB
+	.filter(({ dataModel }) => dataModel == 'Physical')
+	.map(({ tableName }) => tableName)
+	.sort((a, b) => a.length - b.length)
+)
+
+addModelsRelationships(DB
+	.map(({ tableName }) => tableName)
+	.sort((a, b) => a.length - b.length)
+)

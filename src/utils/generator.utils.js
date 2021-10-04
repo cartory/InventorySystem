@@ -58,13 +58,13 @@ const getTableName = (foreignKey) => {
 }
 
 const generateModel = (table) => {
-	let className = table.tableName
-
 	let rawModelFile = (''
-		+ "const { Model, DataTypes } = require('sequelize')\n"
+		+ "const { DataTypes } = require('sequelize')\n"
 		+ "const sequelize = require('../utils/sequelize')\n\n"
-		+ `class ${className} extends Model { }\n\n`
-		+ `${className}.init({${table.columns
+		// + `module.exports = sequelize.define(${className}, {`
+		// + `class ${className} extends Model { }\n\n`
+		+ `module.exports = sequelize.define('${table.tableName}', {${table.columns
+			// + `${className}.init({${table.columns
 			.map((column, index) => {
 				let { name, length } = column
 				keysToDrop.forEach(key => delete column[key])
@@ -81,19 +81,19 @@ const generateModel = (table) => {
 						let [tableName, key] = getTableName(column[k])
 						return `\t\treferences: {\n\t\t\tkey: '${key}',\n\t\t\tmodel: '${tableName}'\n\t\t}`
 					}
-					
+
 					return `\t\t${k}: ${column[k]}`
-				}).join(',\n')}\n\t}`
+				}).join(',\n')},\n\t}`
 			}).join(',\n')
 		}\n`
-		+ `}, { \r\tsequelize, \r\ttableName: '${table.tableName}',\r\t`
+		+ `}, { \r\ttableName: '${table.tableName}',\r\t`
 		+ `deletedAt: ${table.dataModel == 'Physical'},\r\t`
-		+ `timestamps: ${table.dataModel == 'Physical'},\r})\n\n`
-		+ `module.exports = ${className}`
+		+ `timestamps: ${table.dataModel == 'Physical'},\r})`
+		// + `module.exports = ${className}`
 	)
 
 
-	fs.writeFileSync(`src/models/${className}.js`, rawModelFile, {
+	fs.writeFileSync(`src/models/${table.tableName}.js`, rawModelFile, {
 		encoding: 'utf-8'
 	})
 }

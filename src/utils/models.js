@@ -15,11 +15,11 @@ Type.hasMany(Place, { foreignKey: 'Typeid', as: 'places' })
 Place.hasMany(Task, { foreignKey: 'Placeid', as: 'place' })
 Task.belongsTo(Place, { foreignKey: 'Placeid', as: 'tasks' })
 
-Place.belongsToMany(User, { foreignKey: 'Userid', as: 'users' })
-User.belongsToMany(Place, { foreignKey: 'Placeid', as: 'places' })
+Place.belongsToMany(User, { through: User_Place, foreignKey: 'Userid', as: 'users' })
+User.belongsToMany(Place, { through: User_Place, foreignKey: 'Placeid', as: 'places' })
 
-User.belongsToMany(Task, { foreignKey: 'Taskid', as: 'tasks' })
-Task.belongsToMany(User, { foreignKey: 'Userid', as: 'users' })
+User.belongsToMany(Task, { through: User_Task, foreignKey: 'Taskid', as: 'tasks' })
+Task.belongsToMany(User, { through: User_Task, foreignKey: 'Userid', as: 'users' })
 
 module.exports = {
 	User,

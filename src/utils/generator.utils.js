@@ -16,17 +16,17 @@ const keysToDrop = [
 const getDataType = {
 	int4: (_) => `DataTypes.TINYINT`,
 	byte: (_) => `DataTypes.TINYINT`,
-	
+
 	bit: (_) => `DataTypes.BOOLEAN`,
 	boolean: (_) => `DataTypes.BOOLEAN`,
-	
+
 	char: (length) => `DataTypes.CHAR(${length})`,
 	float: (length) => `DataTypes.FLOAT(${length})`,
 	double: (length) => `DataTypes.DOUBLE(${length})`,
 
 	int: (length) => `DataTypes.INTEGER(${length})`,
 	integer: (length) => `DataTypes.INTEGER(${length})`,
-	
+
 	long: (length) => `DataTypes.BIGINT(${length})`,
 	short: (length) => `DataTypes.SMALLINT( ${length})`,
 
@@ -60,9 +60,9 @@ const getTableName = (foreignKey) => {
 const generateModel = (table) => {
 	let className = table.tableName
 
-	let modelFile = (''
+	let rawModelFile = (''
 		+ "const { Model, DataTypes } = require('sequelize')\n"
-		+ "const sequelize = require('../utils/sequelize.instance.js')\n\n"
+		+ "const sequelize = require('../utils/sequelize')\n\n"
 		+ `class ${className} extends Model { }\n\n`
 		+ `${className}.init({${table.columns
 			.map((column, index) => {
@@ -81,15 +81,19 @@ const generateModel = (table) => {
 						let [tableName, key] = getTableName(column[k])
 						return `\t\treferences: {\n\t\t\tkey: '${key}',\n\t\t\tmodel: '${tableName}'\n\t\t}`
 					}
+					
 					return `\t\t${k}: ${column[k]}`
 				}).join(',\n')}\n\t}`
 			}).join(',\n')
 		}\n`
-		+ `}, { \r\tsequelize, \r\ttableName: '${table.tableName}'\r})\n\n`
+		+ `}, { \r\tsequelize, \r\ttableName: '${table.tableName}',\r\t`
+		+ `deletedAt: ${table.dataModel == 'Physical'},\r\t`
+		+ `timestamps: ${table.dataModel == 'Physical'},\r})\n\n`
 		+ `module.exports = ${className}`
 	)
 
-	fs.writeFileSync(`src/models/${className}.js`, modelFile, {
+
+	fs.writeFileSync(`src/models/${className}.js`, rawModelFile, {
 		encoding: 'utf-8'
 	})
 }
@@ -97,7 +101,7 @@ const generateModel = (table) => {
 const generateController = ({ tableName }) => {
 	let controllerFile = (''
 		+ "const { Controller } = require('../utils/controller')\n"
-		+ `const ${tableName} = require('../models/${tableName}')\n\n`
+		+ `const { ${tableName} } = require('../utils/models')\n\n`
 		+ `class ${tableName}Controller extends Controller {\n`
 		+ `\tconstructor() {\r\t\tsuper(${tableName})\r\t}\r}\n\n`
 		+ `module.exports = new ${tableName}Controller()`
@@ -139,10 +143,23 @@ const addApiRoutes = (tableNames) => {
 	})
 }
 
+const addModelsRelationships = (models = []) => {
+	let rawModelsFile = (''
+		+ `${models.map(model => `const ${model} = require('../models/${model}')\r`).join('')}`
+		+ '\r'
+		+ `module.exports = {${models.map(model => `\r\t${model},`).join('')}\r}`
+	)
+
+	fs.writeFileSync('src/utils/models.js', rawModelsFile, {
+		encoding: 'utf-8'
+	})
+}
+
 
 module.exports = {
 	addApiRoutes,
 	generateModel,
 	generateRoute,
 	generateController,
+	addModelsRelationships,
 }

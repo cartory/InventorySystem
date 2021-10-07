@@ -11,10 +11,13 @@ class PlaceController extends Controller {
 			.findOne({
 				where: { id: params.id },
 				include: [
-					'type',
-					'users',
-					'tasks',
-					'subPlaces',
+					'type', 'users', 'tasks',
+					{
+						model: Place,
+						as: 'supPlaces',
+						include: ['type', 'users', 'tasks'],
+						through: { attributes: [] },
+					}
 				],
 			})
 			.then(place => res.status(200).json(place))

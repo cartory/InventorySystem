@@ -7,7 +7,7 @@ const User_Place = require('../models/User_Place')
 const Place_Place = require('../models/Place_Place')
 
 Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeChild_id', as: 'supPlaces' })
-Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeParent_id', as: 'subPlaces' })
+Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeParent_id', as: 'places' })
 
 Place.belongsTo(Type, { foreignKey: 'Typeid', as: 'type' })
 Type.hasMany(Place, { foreignKey: 'Typeid', as: 'places' })

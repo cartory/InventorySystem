@@ -6,6 +6,21 @@ class PlaceController extends Controller {
 		super(Place)
 	}
 
+	all = async (_, res) => {
+		return Place
+			.findAll({
+				include: ['type'],
+				order: [
+					['id', 'ASC'],
+				],
+			})
+			.then(places => res.status(200).json(places))
+			.catch(err => {
+				console.error(err);
+				return res.status(500).json(this.defaultErrorMessage)
+			})
+	}
+
 	find = async ({ params }, res) => {
 		return Place
 			.findOne({
@@ -14,7 +29,7 @@ class PlaceController extends Controller {
 					'type', 'users', 'tasks',
 					{
 						model: Place,
-						as: 'supPlaces',
+						as: 'places',
 						include: ['type', 'users', 'tasks'],
 						through: { attributes: [] },
 					}

@@ -1,24 +1,47 @@
 const { Controller } = require('../utils/controller')
-const { Place } = require('../utils/models')
+const { Place, Type } = require('../utils/models')
 
 class PlaceController extends Controller {
 	constructor() {
 		super(Place)
 	}
 
-	all = async (_, res) => {
-		return Place
-			.findAll({
-				include: ['type'],
+	all = async ({ query }, res) => {
+		let { page = 0, limit = 10 } = query
+		try {
+			let rootType = await Type.findOne({
 				order: [
-					['id', 'ASC'],
-				],
+					['id', 'ASC']
+				]
 			})
-			.then(places => res.status(200).json(places))
-			.catch(err => {
-				console.error(err);
-				return res.status(500).json(this.defaultErrorMessage)
-			})
+			
+			return Place
+				.findAll({
+					limit,
+					offset: page * limit,
+					where: {
+						Typeid: rootType.getDataValue('id')
+					},
+					include: [
+						'type', 'users', 'tasks',
+						{
+							model: Place,
+							as: 'places',
+							include: ['type', 'users', 'tasks'],
+							through: { attributes: [] },
+						}
+					]
+				})
+				.then(places => res.status(200).json(places))
+				.catch(err => {
+					console.error(err);
+					return res.status(500).json(this.defaultErrorMessage)
+				})
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json(this.defaultErrorMessage)
+		}
+
 	}
 
 	find = async ({ params }, res) => {

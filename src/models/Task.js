@@ -33,5 +33,10 @@ module.exports = sequelize.define('Task', {	id: {
 			key: 'id',
 			model: 'Place'
 		},
+	},
+	photoUrl: {
+		key: 'photoUrl',
+		type: DataTypes.STRING(255),
+		allowNull: true,
 	}
 }, { 	tableName: 'Task',	deletedAt: true,	timestamps: true,})

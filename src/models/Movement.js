@@ -8,18 +8,31 @@ module.exports = sequelize.define('Movement', {	id: {
 		autoIncrement: true,
 		autoIncrementIdentity: true,
 	},
-	reason: {
-		key: 'reason',
-		type: DataTypes.STRING(50),
+	Reasonid: {
+		key: 'Reasonid',
+		type: DataTypes.INTEGER(11),
+		references: {
+			key: 'id',
+			model: 'Reason'
+		},
 	},
 	description: {
 		key: 'description',
 		type: DataTypes.TEXT(undefined),
 		allowNull: true,
 	},
+	Equipmentid: {
+		key: 'Equipmentid',
+		type: DataTypes.INTEGER(11),
+		references: {
+			key: 'id',
+			model: 'Equipment'
+		},
+	},
 	placeFrom_id: {
 		key: 'placeFrom_id',
 		type: DataTypes.INTEGER(10),
+		allowNull: true,
 		references: {
 			key: 'id',
 			model: 'Place'
@@ -32,14 +45,6 @@ module.exports = sequelize.define('Movement', {	id: {
 		references: {
 			key: 'id',
 			model: 'Place'
-		},
-	},
-	Equipmentid: {
-		key: 'Equipmentid',
-		type: DataTypes.INTEGER(11),
-		references: {
-			key: 'id',
-			model: 'Equipment'
 		},
 	}
 }, { 	tableName: 'Movement',	deletedAt: true,	timestamps: true,})

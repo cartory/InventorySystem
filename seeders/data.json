@@ -1,0 +1,112 @@
+{
+	"unit": [
+		"UND",
+		"PZA"
+	],
+	"reason": [
+		"loan",
+		"review",
+		"transaction"
+	],
+	"place_type": [
+		"university",
+		"module",
+		"faculty",
+		"classroom",
+		"office"
+	],
+	"place": [
+		[
+			"UAGRM",
+			"Universidad Autónoma Gabriel René Moreno",
+			"university",
+			[
+				[
+					"FICCT",
+					"Facultad de Ingeniería en Ciencias de la Computación y Telecomunicaciones",
+					"faculty",
+					[
+						[
+							"232",
+							"Módulo 232",
+							"module",
+							[
+								[
+									"9",
+									"Aula 9",
+									"classroom"
+								],
+								[
+									"10",
+									"Aula 10",
+									"classroom"
+								],
+								[
+									"11",
+									"Aula 11",
+									"classroom"
+								],
+								[
+									"12",
+									"Aula 12",
+									"classroom"
+								]
+							]
+						],
+						[
+							"236",
+							"Módulo 236",
+							"module",
+							[
+								[
+									"41",
+									"Aula 41",
+									"classroom"
+								],
+								[
+									"42",
+									"Aula 42",
+									"classroom"
+								],
+								[
+									"44",
+									"Aula 44",
+									"classroom"
+								],
+								[
+									"45",
+									"Aula 45",
+									"classroom"
+								],
+								[
+									"46",
+									"Aula 46",
+									"classroom"
+								],
+								[
+									"48",
+									"Aula 48",
+									"classroom"
+								]
+							]
+						],
+						[
+							[
+								"123",
+								"Módulo 123",
+								"module"
+							],
+							[
+								[
+									"9",
+									"Aula 9",
+									"classroom"
+								]
+							]
+						]
+					]
+				]
+			]
+		]
+	]
+}

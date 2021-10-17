@@ -25,6 +25,13 @@ const csv2json = (module, rooms = []) => {
 
 }
 
-csv2json(123, ['03'])
-csv2json(232, ['09', 10, 11, 12])
-csv2json(236, [41, 42, 43, 44, 45, 46, 48])
+let modules = [
+	[123, ['03']],
+	[232, ['09', 10, 11, 12]],
+	[236, [41, 42, 43, 44, 45, 46, 48]],
+]
+
+modules.forEach(([module, rooms]) => {
+	csv2json(module, rooms)
+	console.log(module, 'csv2json Done!');
+})

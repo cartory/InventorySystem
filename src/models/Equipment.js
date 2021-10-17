@@ -11,7 +11,6 @@ module.exports = sequelize.define('Equipment', {	id: {
 	description: {
 		key: 'description',
 		type: DataTypes.TEXT(undefined),
-		allowNull: true,
 	},
 	code: {
 		key: 'code',
@@ -22,5 +21,22 @@ module.exports = sequelize.define('Equipment', {	id: {
 		key: 'photoUrl',
 		type: DataTypes.STRING(255),
 		allowNull: true,
+	},
+	state: {
+		key: 'state',
+		type: DataTypes.STRING(50),
+	},
+	observations: {
+		key: 'observations',
+		type: DataTypes.TEXT(undefined),
+		allowNull: true,
+	},
+	Unitid: {
+		key: 'Unitid',
+		type: DataTypes.INTEGER(11),
+		references: {
+			key: 'id',
+			model: 'Unit'
+		},
 	}
 }, { 	tableName: 'Equipment',	deletedAt: true,	timestamps: true,})

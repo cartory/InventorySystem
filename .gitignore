@@ -1,8 +1,6 @@
 # DIRS
 dist/
 
-seeders/
-
 # models/
 # routes/
 # controllers/

@@ -1,7 +1,9 @@
 {
 	"unit": [
 		"UND",
-		"PZA"
+		"PZA",
+		"PKT",
+		"DCN"
 	],
 	"reason": [
 		"loan",

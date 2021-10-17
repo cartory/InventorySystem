@@ -1,15 +1,17 @@
-const sequelizeInstance = require('../src/utils/sequelize')
+const sequelize = require('../src/utils/sequelize')
+// const faker = require('faker')
 
-const faker = require('faker')
+const data = require('./data.json')
 
-const Place = require('../src/models/Place')
-const PlaceType = require('../src/models/Type')
-const Place_Place = require('../src/models/Place_Place')
+const {
+	Unit, Reason, Equipment,
+	Place, Type, Place_Place,
+} = require('../src/utils/models')
 
 const seedPlaces = ({ places = [], placeParent_id = null, transaction }) => {
 	places.forEach(async ([code, name, type, children]) => {
 		try {
-			type = await PlaceType.findOne({ where: { name: type } })
+			type = await Type.findOne({ where: { name: type } })
 
 			let place = await Place.create({
 				code,
@@ -36,18 +38,19 @@ const seedPlaces = ({ places = [], placeParent_id = null, transaction }) => {
 	})
 }
 
-sequelizeInstance
+sequelize
 	.authenticate()
 	.then(async () => {
-		// await sequelizeInstance.dropAllSchemas({ logging: true })
-
-		let transaction = await sequelizeInstance.transaction({ autocommit: true, logging: true })
+		await sequelize.dropAllSchemas({ logging: true })
+		await sequelize.sync({ alter: true })
+		let transaction = await sequelize.transaction({ autocommit: true, logging: true })
 
 		try {
-			// seeding types
-			// await PlaceType.bulkCreate(require('./place_type.json'))
-			// seeding places
-			// seedPlaces({ places, transaction })
+			await Unit.bulkCreate(data.unit.map(name => ({ name })))
+			await Reason.bulkCreate(data.reason.map(name => ({ name })))
+			await Type.bulkCreate(data.place_type.map(name => ({ name })))
+
+			seedPlaces({ places: data.place, transaction })
 		} catch (err) {
 			await transaction.rollback()
 			console.error(err);

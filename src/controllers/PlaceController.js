@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const { Place, Type } = require('../utils/models')
+const { Place, Type, Movement, Equipment } = require('../utils/models')
 
 class PlaceController extends Controller {
 	constructor() {
@@ -7,20 +7,19 @@ class PlaceController extends Controller {
 	}
 
 	all = async ({ query }, res) => {
-		let { page = 0, limit = 10 } = query
+		const { page = 0, limit = 10 } = query
 		
-		limit = Number.parseInt(limit)
 		try {
 			let rootType = await Type.findOne({
 				order: [
 					['id', 'ASC']
 				]
 			})
-			
+
 			return Place
 				.findAll({
-					limit,
 					offset: page * limit,
+					limit: Number.parseInt(limit),
 					where: {
 						Typeid: rootType.getDataValue('id')
 					},

@@ -23,11 +23,11 @@ class PlaceController extends Controller {
 					Typeid: type?.getDataValue('id')
 				},
 				include: [
-					'type', 'users', 'tasks',
+					'type', 'users',
 					{
 						model: Place,
 						as: 'places',
-						include: ['type', 'users', 'tasks'],
+						include: ['type', 'users'],
 						through: { attributes: [] },
 					}
 				],
@@ -46,11 +46,11 @@ class PlaceController extends Controller {
 			.findOne({
 				where: { id: params.id },
 				include: [
-					'type', 'users', 'tasks',
+					'type', 'users',
 					{
 						model: Place,
 						as: 'places',
-						include: ['type', 'users', 'tasks'],
+						include: ['type', 'users'],
 						through: { attributes: [] },
 					}
 				],

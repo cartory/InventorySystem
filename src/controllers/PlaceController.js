@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const { Place, Type } = require('../utils/models')
+const { Place, Type, Task } = require('../utils/models')
 
 class PlaceController extends Controller {
 	constructor() {
@@ -10,25 +10,27 @@ class PlaceController extends Controller {
 		const { page = 0, limit = 10 } = query
 
 		try {
-			let rootType = await Type.findOne({
-				order: [
-					['id', 'ASC']
-				]
+			const type = await Type.findOne({
+				order: [['id', 'ASC']]
 			})
 
 			let places = await Place.findAll({
 				offset: page * limit,
 				limit: Number.parseInt(limit),
 				where: {
-					Typeid: rootType?.getDataValue('id')
+					Typeid: type?.getDataValue('id')
 				},
 				include: [
-					'type', 'users',
+					{ model: Type, as: 'type' },
+					{ model: Task, as: 'tasks' },
 					{
 						model: Place,
-						as: 'places',
-						include: ['type', 'users'],
+						association: 'places',
 						through: { attributes: [] },
+						include: [
+							{ model: Type, as: 'type' },
+							{ model: Task, as: 'tasks' },
+						],
 					}
 				],
 			})
@@ -42,24 +44,29 @@ class PlaceController extends Controller {
 	}
 
 	find = async ({ params }, res) => {
-		return Place
-			.findOne({
+		try {
+			let place = await Place.findOne({
 				where: { id: params.id },
 				include: [
-					'type', 'users',
+					{ model: Type, as: 'type' },
+					{ model: Task, as: 'tasks' },
 					{
 						model: Place,
-						as: 'places',
-						include: ['type', 'users'],
+						association: 'places',
 						through: { attributes: [] },
+						include: [
+							{ model: Type, as: 'type' },
+							{ model: Task, as: 'tasks' },
+						],
 					}
 				],
 			})
-			.then(place => res.status(200).json(place))
-			.catch(err => {
-				console.log(err);
-				return res.status(500).json(this.defaultErrorMessage)
-			})
+
+			return res.status(200).json(place)
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json(this.defaultErrorMessage)
+		}
 	}
 }
 

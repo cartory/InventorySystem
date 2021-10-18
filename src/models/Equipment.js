@@ -1,7 +1,9 @@
-const { DataTypes } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-module.exports = sequelize.define('Equipment', {	id: {
+class Equipment extends Model { }
+
+Equipment.init({	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(11),
 		primaryKey: true,
@@ -39,4 +41,6 @@ module.exports = sequelize.define('Equipment', {	id: {
 			model: 'Unit'
 		},
 	}
-}, { 	tableName: 'Equipment',	deletedAt: true,	timestamps: true,})
+}, { 	sequelize, 	tableName: 'Equipment',	deletedAt: true,	timestamps: true,})
+
+module.exports = Equipment

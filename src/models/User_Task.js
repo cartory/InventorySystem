@@ -1,7 +1,9 @@
-const { DataTypes } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-module.exports = sequelize.define('User_Task', {	Userid: {
+class User_Task extends Model { }
+
+User_Task.init({	Userid: {
 		key: 'Userid',
 		type: DataTypes.INTEGER(10),
 		primaryKey: true,
@@ -27,4 +29,6 @@ module.exports = sequelize.define('User_Task', {	Userid: {
 		key: 'endDate',
 		type: DataTypes.DATE,
 	}
-}, { 	tableName: 'User_Task',	deletedAt: false,	timestamps: false,})
+}, { 	sequelize, 	tableName: 'User_Task',	deletedAt: false,	timestamps: false,})
+
+module.exports = User_Task

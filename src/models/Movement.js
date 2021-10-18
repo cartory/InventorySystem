@@ -1,8 +1,9 @@
-const { DataTypes } = require('sequelize')
+const { Model, DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-module.exports = sequelize.define('Movement', {
-	id: {
+class Movement extends Model { }
+
+Movement.init({	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(11),
 		primaryKey: true,
@@ -48,8 +49,6 @@ module.exports = sequelize.define('Movement', {
 			model: 'Place'
 		},
 	}
-}, { 
-	tableName: 'Movement',
-	deletedAt: false,
-	timestamps: true,
-})
+}, { 	sequelize, 	tableName: 'Movement',	deletedAt: false,	timestamps: false,})
+
+module.exports = Movement

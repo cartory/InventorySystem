@@ -40,7 +40,7 @@ const getDataType = {
 
 const getTableName = (foreignKey) => {
 	let index = -1
-	
+
 	let { tableName, columns } = database.find(({ columns }) => {
 		return columns.some(({ key }) => {
 			if (key.split('@').includes(foreignKey)) {
@@ -58,12 +58,12 @@ const getTableName = (foreignKey) => {
 }
 
 const generateModel = (table) => {
+	let className = table.tableName
 	let rawModelFile = (''
-		+ "const { DataTypes } = require('sequelize')\n"
+		+ "const { Model, DataTypes } = require('sequelize')\n"
 		+ "const sequelize = require('../utils/sequelize')\n\n"
-		// + `module.exports = sequelize.define(${className}, {`
-		// + `class ${className} extends Model { }\n\n`
-		+ `module.exports = sequelize.define('${table.tableName}', {${table.columns
+		+ `class ${className} extends Model { }\n\n`
+		+ `${className}.init({${table.columns
 			// + `${className}.init({${table.columns
 			.map((column, index) => {
 				let { name, length } = column
@@ -86,10 +86,10 @@ const generateModel = (table) => {
 				}).join(',\n')},\n\t}`
 			}).join(',\n')
 		}\n`
-		+ `}, { \r\ttableName: '${table.tableName}',\r\t`
+		+ `}, { \r\tsequelize, \r\ttableName: '${table.tableName}',\r\t`
 		+ `deletedAt: ${table.dataModel == 'Physical'},\r\t`
-		+ `timestamps: ${table.dataModel == 'Physical'},\r})`
-		// + `module.exports = ${className}`
+		+ `timestamps: ${table.dataModel == 'Physical'},\r})\n\n`
+		+ `module.exports = ${className}`
 	)
 
 

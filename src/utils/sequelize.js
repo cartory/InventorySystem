@@ -14,6 +14,10 @@ module.exports = new Sequelize(
 					]
 				}
 			}
-		}
+		},
+		pool: {
+			idle: 10000,
+			acquire: 3600000,
+		},
 	}
 )

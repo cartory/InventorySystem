@@ -7,67 +7,89 @@ class EquipmentController extends Controller {
 	}
 
 	all = async ({ query }, res) => {
-		const { page = 0, limit = 10 } = query
+		const { page = 0, limit = 10, placeId } = query
 
-		return Equipment
-			.findAll({
+		try {
+			let equipments = await Equipment.findAll({
 				offset: page * limit,
 				limit: Number.parseInt(limit),
 				include: [
 					'unit',
 					{
+						model: Place,
+						as: 'places',
+						include: ['type'],
+						where: placeId ? { id: placeId } : null,
+						through: { attributes: [] }
+					},
+					{
 						model: Movement,
 						as: 'movements',
 						include: [
-							'reason', 'placeFrom', 'placeTo',
+							'reason',
+							{
+								model: Place,
+								as: 'placeTo',
+								include: ['type']
+							},
+							{
+								model: Place,
+								as: 'placeFrom',
+								include: ['type']
+							},
+						],
+					},
+				]
+			})
+
+			return res.status(200).json(equipments)
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json(this.defaultErrorMessage)
+		}
+	}
+
+	find = async ({ params }, res) => {
+		try {
+			let equipment = await Equipment.findOne({
+				where: { id: params.id },
+				include: [
+					'unit',
+					{
+						model: Place,
+						as: 'places',
+						include: ['type'],
+						through: { attributes: [] }
+					},
+					{
+						model: Movement,
+						as: 'movements',
+						include: [
+							'reason',
+							{
+								model: Place,
+								as: 'placeTo',
+								include: [
+									'type'
+								]
+							},
+							{
+								model: Place,
+								as: 'placeFrom',
+								include: [
+									'type'
+								]
+							},
 						],
 					},
 				],
 			})
-			.then(equipment => res.status(200).json(equipment))
-			.catch(err => {
-				console.error(err);
-				return res.status(500).json(this.defaultErrorMessage)
-			})
-	}
 
-	find = async ({ query }, res) => {
-		const { page = 0, limit = 10, placeId } = query
-
-		let include = [
-			'unit',
-			{
-				as: 'movements',
-				model: Movement,
-				include: [
-					'reason', 'placeFrom', 'placeTo'
-				],
-			}
-		]
-		
-		if (placeId) {
-			include.push({
-				as: 'places',
-				model: Place,
-				attributes: [],
-				where: { id: placeId },
-				through: { attributes: [] },
-			})
+			return res.status(200).json(equipment)
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json(this.defaultErrorMessage)
 		}
-
-		return Equipment
-			.findAll({
-				include: include,
-				offset: page * limit,
-				limit: Number.parseInt(limit),
-			})
-			.then(equipment => res.status(200).json(equipment))
-			.catch(err => {
-				console.error(err)
-				return res.status(500).json(this.defaultErrorMessage)
-			})
-
 	}
 }
-
 module.exports = new EquipmentController()

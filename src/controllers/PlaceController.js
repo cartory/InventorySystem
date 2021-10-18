@@ -23,7 +23,7 @@ class PlaceController extends Controller {
 					Typeid: type?.getDataValue('id')
 				},
 				include: [
-					'type', 'users', 'tasks'
+					'type', 'users', 'tasks',
 					{
 						model: Place,
 						as: 'places',

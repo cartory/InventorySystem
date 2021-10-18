@@ -17,12 +17,11 @@ Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeParent_id',
 Place.belongsToMany(Equipment, { through: Movement, foreignKey: 'placeTo_id', as: 'equipments' })
 Equipment.belongsToMany(Place, { through: Movement, foreignKey: 'Equipmentid', as: 'places' })
 
+Place.belongsTo(Type, { foreignKey: 'Typeid', as: 'type' })
+Type.hasMany(Place, { foreignKey: 'Typeid', as: 'places' })
 
 Place.hasMany(Task, { foreignKey: 'Placeid', as: 'tasks' })
 Task.belongsTo(Place, { foreignKey: 'Placeid', as: 'place' })
-
-Type.hasMany(Place, { foreignKey: 'Typeid', as: 'places' })
-Place.belongsTo(Type, { foreignKey: 'Typeid', as: 'type' })
 
 Place.belongsToMany(User, { through: User_Place, foreignKey: 'Userid', as: 'users' })
 User.belongsToMany(Place, { through: User_Place, foreignKey: 'Placeid', as: 'places' })

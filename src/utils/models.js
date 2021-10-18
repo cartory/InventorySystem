@@ -38,7 +38,7 @@ Movement.belongsTo(Place, { foreignKey: 'placeFrom_id', as: 'placeFrom' })
 Place.hasMany(Movement, { foreignKey: 'placeFrom_id', as: 'movementsFrom' })
 
 Movement.belongsTo(Place, { foreignKey: 'placeTo_id', as: 'placeTo' })
-Place.hasMany(Movement, { foreignKey: 'placeFrom_id', as: 'movementsTo' })
+Place.hasMany(Movement, { foreignKey: 'placeTo_id', as: 'movementsTo' })
 
 // EQUIPMENT
 Equipment.belongsTo(Unit, { foreignKey: 'Unitid', as: 'unit' })

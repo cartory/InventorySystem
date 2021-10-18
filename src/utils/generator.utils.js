@@ -30,7 +30,7 @@ const getDataType = {
 	long: (length) => `DataTypes.BIGINT(${length})`,
 	short: (length) => `DataTypes.SMALLINT( ${length})`,
 
-	text: (length) => `DataTypes.TEXT(${length})`,
+	text: (_) => `DataTypes.TEXT`,
 	string: (length) => `DataTypes.STRING(${length})`,
 	varchar: (length) => `DataTypes.STRING(${length})`,
 

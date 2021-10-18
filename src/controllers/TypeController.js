@@ -6,6 +6,24 @@ class TypeController extends Controller {
 		super(Type)
 	}
 
+	all = async ({ query }, res) => { 
+		const { page = 0, limit = 10 } = query
+		try {
+			let types = await Type.findAll({
+				offset: page * limit,
+				limit: Number.parseInt(limit),
+				include: [
+					'places'
+				]
+			})
+
+			return res.status(200).json(types)
+		} catch (err) {
+			console.error(err);
+			return res.status(500).json(this.defaultErrorMessage)
+		}
+	}
+
 	find = async ({ params }, res) => {
 		return Type
 			.findOne({

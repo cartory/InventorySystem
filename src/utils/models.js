@@ -14,6 +14,9 @@ const Place_Place = require('../models/Place_Place')
 Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeChild_id', as: 'supPlaces' })
 Place.belongsToMany(Place, { through: Place_Place, foreignKey: 'placeParent_id', as: 'places' })
 
+Place.belongsToMany(Equipment, { through: Movement, foreignKey: 'placeTo_id', as: 'equipments' })
+Equipment.belongsToMany(Place, { through: Movement, foreignKey: 'Equipmentid', as: 'places' })
+
 Place.belongsTo(Type, { foreignKey: 'Typeid', as: 'type' })
 Type.hasMany(Place, { foreignKey: 'Typeid', as: 'places' })
 

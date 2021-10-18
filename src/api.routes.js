@@ -8,7 +8,6 @@ const controllers = [
 	require('./controllers/UnitController'),
 	require('./controllers/PlaceController'),
 	require('./controllers/ReasonController'),
-	require('./controllers/MovementController'),
 	require('./controllers/EquipmentController')
 ]
 
@@ -19,7 +18,6 @@ const routes = [
 	require('./routes/Unit.route.json'),
 	require('./routes/Place.route.json'),
 	require('./routes/Reason.route.json'),
-	require('./routes/Movement.route.json'),
 	require('./routes/Equipment.route.json')
 ]
 

@@ -3,7 +3,8 @@
 		"UND",
 		"PZA",
 		"PKT",
-		"DCN"
+		"DCN",
+		"EQPO"
 	],
 	"reason": [
 		"loan",
@@ -29,12 +30,24 @@
 					"faculty",
 					[
 						[
+							"123",
+							"Módulo 123",
+							"module",
+							[
+								[
+									"03",
+									"Aula 3",
+									"classroom"
+								]
+							]
+						],
+						[
 							"232",
 							"Módulo 232",
 							"module",
 							[
 								[
-									"9",
+									"09",
 									"Aula 9",
 									"classroom"
 								],
@@ -71,6 +84,11 @@
 									"classroom"
 								],
 								[
+									"43",
+									"Aula 43",
+									"classroom"
+								],
+								[
 									"44",
 									"Aula 44",
 									"classroom"
@@ -88,20 +106,6 @@
 								[
 									"48",
 									"Aula 48",
-									"classroom"
-								]
-							]
-						],
-						[
-							[
-								"123",
-								"Módulo 123",
-								"module"
-							],
-							[
-								[
-									"9",
-									"Aula 9",
 									"classroom"
 								]
 							]

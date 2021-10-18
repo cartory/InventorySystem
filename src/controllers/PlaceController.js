@@ -8,36 +8,32 @@ class PlaceController extends Controller {
 
 	all = async ({ query }, res) => {
 		const { page = 0, limit = 10 } = query
-		
+
 		try {
-			let rootType = await Type.findOne({
+			let type = await Type.findOne({
 				order: [
 					['id', 'ASC']
 				]
 			})
 
-			return Place
-				.findAll({
-					offset: page * limit,
-					limit: Number.parseInt(limit),
-					where: {
-						Typeid: rootType.getDataValue('id')
-					},
-					include: [
-						'type', 'users', 'tasks',
-						{
-							model: Place,
-							as: 'places',
-							include: ['type', 'users', 'tasks'],
-							through: { attributes: [] },
-						}
-					]
-				})
-				.then(places => res.status(200).json(places))
-				.catch(err => {
-					console.error(err);
-					return res.status(500).json(this.defaultErrorMessage)
-				})
+			let places = await Place.findAll({
+				offset: page * limit,
+				limit: Number.parseInt(limit),
+				where: {
+					Typeid: type?.getDataValue('id')
+				},
+				include: [
+					'type', 'users', 'tasks'
+					{
+						model: Place,
+						as: 'places',
+						include: ['type', 'users', 'tasks'],
+						through: { attributes: [] },
+					}
+				],
+			})
+
+			return res.status(200).json(places)
 		} catch (err) {
 			console.error(err);
 			return res.status(500).json(this.defaultErrorMessage)

@@ -10,7 +10,7 @@ module.exports = sequelize.define('Equipment', {	id: {
 	},
 	description: {
 		key: 'description',
-		type: DataTypes.TEXT(undefined),
+		type: DataTypes.TEXT,
 	},
 	code: {
 		key: 'code',
@@ -28,7 +28,7 @@ module.exports = sequelize.define('Equipment', {	id: {
 	},
 	observations: {
 		key: 'observations',
-		type: DataTypes.TEXT(undefined),
+		type: DataTypes.TEXT,
 		allowNull: true,
 	},
 	Unitid: {

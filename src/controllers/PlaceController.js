@@ -8,6 +8,8 @@ class PlaceController extends Controller {
 
 	all = async ({ query }, res) => {
 		let { page = 0, limit = 10 } = query
+		
+		limit = Number.parseInt(limit)
 		try {
 			let rootType = await Type.findOne({
 				order: [

@@ -1,7 +1,8 @@
 const { DataTypes } = require('sequelize')
 const sequelize = require('../utils/sequelize')
 
-module.exports = sequelize.define('Movement', {	id: {
+module.exports = sequelize.define('Movement', {
+	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(11),
 		primaryKey: true,
@@ -47,4 +48,8 @@ module.exports = sequelize.define('Movement', {	id: {
 			model: 'Place'
 		},
 	}
-}, { 	tableName: 'Movement',	deletedAt: true,	timestamps: true,})
+}, { 
+	tableName: 'Movement',
+	deletedAt: false,
+	timestamps: true,
+})

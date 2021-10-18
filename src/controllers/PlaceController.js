@@ -10,7 +10,7 @@ class PlaceController extends Controller {
 		const { page = 0, limit = 10 } = query
 
 		try {
-			let type = await Type.findOne({
+			let rootType = await Type.findOne({
 				order: [
 					['id', 'ASC']
 				]
@@ -20,7 +20,7 @@ class PlaceController extends Controller {
 				offset: page * limit,
 				limit: Number.parseInt(limit),
 				where: {
-					Typeid: type?.getDataValue('id')
+					Typeid: rootType?.getDataValue('id')
 				},
 				include: [
 					'type', 'users',

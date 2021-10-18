@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const { Place, Type, Movement, Equipment } = require('../utils/models')
+const { Place, Type } = require('../utils/models')
 
 class PlaceController extends Controller {
 	constructor() {

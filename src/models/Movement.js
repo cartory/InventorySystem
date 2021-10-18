@@ -18,7 +18,7 @@ module.exports = sequelize.define('Movement', {	id: {
 	},
 	description: {
 		key: 'description',
-		type: DataTypes.TEXT(undefined),
+		type: DataTypes.TEXT,
 		allowNull: true,
 	},
 	Equipmentid: {

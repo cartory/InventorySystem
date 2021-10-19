@@ -10,10 +10,10 @@
     "seed": "node seeders/main_seeder",
     "drop": "rm -rf src/controllers src/models src/routes",
     "mkdir": "mkdir src/controllers src/models src/routes",
-    "gen": "npm run parse && npm run drop && npm run mkdir && node src/generator",
-    "parse": "xml2js assets/.xml -o assets/database.json && node src/parser",
-    "build": "webpack && node heroku && cp .env.sample dist/.env",
-    "deploy": "npm run build && gh-pages -d dist"
+    "gen": "npm run parse && npm run drop && npm run mkdir && node lib/scripts/generator",
+    "parse": "xml2js assets/.xml -o assets/database.json && node lib/scripts/parser",
+    "build": "cp -rf src/ dist/src && node lib/scripts/heroku && cp .env.sample dist/.env",
+    "deploy": "npm run build && gh-pages -d dist/"
   },
   "repository": {
     "type": "git",

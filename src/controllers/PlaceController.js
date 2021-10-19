@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const { Place, Type, Task } = require('../utils/models')
+const { Place, Type } = require('../utils/models')
 
 class PlaceController extends Controller {
 	constructor() {
@@ -21,15 +21,13 @@ class PlaceController extends Controller {
 					Typeid: type?.getDataValue('id')
 				},
 				include: [
-					{ model: Type, as: 'type' },
-					{ model: Task, as: 'tasks' },
+					'type', 'tasks',
 					{
 						model: Place,
-						association: 'places',
+						as: 'places',
 						through: { attributes: [] },
 						include: [
-							{ model: Type, as: 'type' },
-							{ model: Task, as: 'tasks' },
+							'type', 'tasks',
 						],
 					}
 				],
@@ -48,15 +46,13 @@ class PlaceController extends Controller {
 			let place = await Place.findOne({
 				where: { id: params.id },
 				include: [
-					{ model: Type, as: 'type' },
-					{ model: Task, as: 'tasks' },
+					'type', 'tasks',
 					{
 						model: Place,
 						association: 'places',
 						through: { attributes: [] },
 						include: [
-							{ model: Type, as: 'type' },
-							{ model: Task, as: 'tasks' },
+							'type', 'tasks',
 						],
 					}
 				],

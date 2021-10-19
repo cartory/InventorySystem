@@ -3,7 +3,8 @@ const sequelize = require('../utils/sequelize')
 
 class Equipment extends Model { }
 
-Equipment.init({	id: {
+Equipment.init({
+	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(11),
 		primaryKey: true,
@@ -41,6 +42,18 @@ Equipment.init({	id: {
 			model: 'Unit'
 		},
 	}
-}, { 	sequelize, 	tableName: 'Equipment',	deletedAt: true,	timestamps: true,})
+}, {
+	sequelize,
+	tableName: 'Equipment',
+	deletedAt: true,
+	timestamps: true,
+	defaultScope: {
+		attributes: {
+			exclude: [
+				'Unitid'
+			]
+		}
+	}
+})
 
 module.exports = Equipment

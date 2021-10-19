@@ -1,5 +1,6 @@
 const { Controller } = require('../utils/controller')
-const { Type } = require('../utils/models')
+const { Type, Place } = require('../utils/models')
+const { fn, col } = require('sequelize')
 
 class TypeController extends Controller {
 	constructor() {
@@ -9,7 +10,18 @@ class TypeController extends Controller {
 	all = async (_, res) => {
 		try {
 			return res.status(200).json(await Type.findAll({
-				include: ['places']
+				attributes: {
+					include: [
+						[fn('COUNT', col('places.Typeid')), 'placeCount']
+					],
+				},
+				include: [
+					{
+						attributes: [],
+						association: 'places',
+					}
+				],
+				group: 'places.Typeid',
 			}))
 		} catch (err) {
 			console.error(err);
@@ -21,7 +33,12 @@ class TypeController extends Controller {
 		try {
 			return res.status(200).json(await Type.findOne({
 				where: { id: params.id },
-				include: ['places']
+				include: [
+					{
+						association: 'places',
+						include: ['type']
+					}
+				]
 			}))
 		} catch (err) {
 			console.error(err);

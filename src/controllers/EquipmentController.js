@@ -69,16 +69,12 @@ class EquipmentController extends Controller {
 							{
 								model: Place,
 								as: 'placeTo',
-								include: [
-									'type'
-								]
+								include: ['type']
 							},
 							{
 								model: Place,
 								as: 'placeFrom',
-								include: [
-									'type'
-								]
+								include: ['type']
 							},
 						],
 					},

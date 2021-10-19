@@ -3,7 +3,8 @@ const sequelize = require('../utils/sequelize')
 
 class Movement extends Model { }
 
-Movement.init({	id: {
+Movement.init({
+	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(11),
 		primaryKey: true,
@@ -49,6 +50,18 @@ Movement.init({	id: {
 			model: 'Place'
 		},
 	}
-}, { 	sequelize, 	tableName: 'Movement',	deletedAt: false,	timestamps: false,})
+}, {
+	sequelize,
+	tableName: 'Movement',
+	deletedAt: false,
+	timestamps: false,
+	defaultScope: {
+		attributes: {
+			exclude: [
+				'placeTo_id', 'placeFrom_id', 'Equipmentid', 'Reasonid',
+			]
+		}
+	}
+})
 
 module.exports = Movement

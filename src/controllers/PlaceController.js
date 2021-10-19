@@ -23,8 +23,7 @@ class PlaceController extends Controller {
 				include: [
 					'type',
 					{
-						model: Place,
-						as: 'places',
+						association: 'places',
 						through: { attributes: [] },
 						include: ['type'],
 					}

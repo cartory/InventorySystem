@@ -21,19 +21,22 @@ class PlaceController extends Controller {
 					Typeid: type?.getDataValue('id')
 				},
 				include: [
-					'type', 'tasks',
+					'type',
 					{
 						model: Place,
 						as: 'places',
 						through: { attributes: [] },
-						include: [
-							'type', 'tasks',
-						],
+						include: ['type'],
 					}
 				],
 			})
 
-			return res.status(200).json(places)
+			return res.status(200).json(places.map(place => {
+				return {
+					placeCount: place.places.length,
+					...place.toJSON(),
+				}
+			}))
 		} catch (err) {
 			console.error(err);
 			return res.status(500).json(this.defaultErrorMessage)
@@ -46,19 +49,20 @@ class PlaceController extends Controller {
 			let place = await Place.findOne({
 				where: { id: params.id },
 				include: [
-					'type', 'tasks',
+					'type',
 					{
 						model: Place,
 						association: 'places',
 						through: { attributes: [] },
-						include: [
-							'type', 'tasks',
-						],
+						include: ['type'],
 					}
 				],
 			})
 
-			return res.status(200).json(place)
+			return res.status(200).json({
+				placeCount: place.places.length,
+				...place.toJSON(),
+			})
 		} catch (err) {
 			console.error(err);
 			return res.status(500).json(this.defaultErrorMessage)

@@ -1,5 +1,5 @@
 const { Controller } = require('../utils/controller')
-const { Type, Place } = require('../utils/models')
+const { Type } = require('../utils/models')
 
 class TypeController extends Controller {
 	constructor() {
@@ -9,10 +9,7 @@ class TypeController extends Controller {
 	all = async (_, res) => {
 		try {
 			return res.status(200).json(await Type.findAll({
-				include: {
-					model: Place,
-					association: 'places',
-				}
+				include: ['places']
 			}))
 		} catch (err) {
 			console.error(err);
@@ -24,10 +21,7 @@ class TypeController extends Controller {
 		try {
 			return res.status(200).json(await Type.findOne({
 				where: { id: params.id },
-				include: {
-					model: Place,
-					association: 'places'
-				}
+				include: ['places']
 			}))
 		} catch (err) {
 			console.error(err);

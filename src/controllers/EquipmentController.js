@@ -88,4 +88,5 @@ class EquipmentController extends Controller {
 		}
 	}
 }
+
 module.exports = new EquipmentController()

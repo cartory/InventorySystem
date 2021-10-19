@@ -22,6 +22,23 @@ class EquipmentController extends Controller {
 						where: placeId ? { id: placeId } : null,
 						through: { attributes: [] }
 					},
+					{
+						model: Movement,
+						as: 'movements',
+						include: [
+							'reason',
+							{
+								model: Place,
+								as: 'placeTo',
+								include: ['type']
+							},
+							{
+								model: Place,
+								as: 'placeFrom',
+								include: ['type']
+							},
+						],
+					},
 				]
 			})
 
@@ -71,4 +88,5 @@ class EquipmentController extends Controller {
 		}
 	}
 }
+
 module.exports = new EquipmentController()

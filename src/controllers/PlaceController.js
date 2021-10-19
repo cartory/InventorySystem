@@ -1,6 +1,8 @@
 const { Controller } = require('../utils/controller')
 const { Place, Type } = require('../utils/models')
 
+const { fn, col } = require('sequelize')
+
 class PlaceController extends Controller {
 	constructor() {
 		super(Place)
@@ -54,7 +56,15 @@ class PlaceController extends Controller {
 						model: Place,
 						association: 'places',
 						through: { attributes: [] },
-						include: ['type'],
+						attributes: {
+							include: [
+								[fn('COUNT', col('places.Typeid')), 'placeCount'],
+							]
+						},
+						include: [
+							'type',
+							{ association: 'places', attributes: [] },
+						],
 					}
 				],
 			})

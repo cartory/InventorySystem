@@ -3,7 +3,8 @@ const sequelize = require('../utils/sequelize')
 
 class Task extends Model { }
 
-Task.init({	id: {
+Task.init({
+	id: {
 		key: 'id',
 		type: DataTypes.INTEGER(10),
 		primaryKey: true,
@@ -41,6 +42,18 @@ Task.init({	id: {
 		type: DataTypes.STRING(255),
 		allowNull: true,
 	}
-}, { 	sequelize, 	tableName: 'Task',	deletedAt: true,	timestamps: true,})
+}, { 
+	sequelize, 
+	tableName: 'Task',
+	deletedAt: true,
+	timestamps: true,
+	defaultScope: {
+		attributes: {
+			exclude: [
+				'Placeid'
+			]
+		}
+	}
+})
 
 module.exports = Task

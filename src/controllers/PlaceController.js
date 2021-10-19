@@ -1,8 +1,6 @@
 const { Controller } = require('../utils/controller')
 const { Place, Type } = require('../utils/models')
 
-const { fn, col } = require('sequelize')
-
 class PlaceController extends Controller {
 	constructor() {
 		super(Place)
@@ -33,12 +31,7 @@ class PlaceController extends Controller {
 				],
 			})
 
-			return res.status(200).json(places.map(place => {
-				return {
-					placeCount: place.places.length,
-					...place.toJSON(),
-				}
-			}))
+			return res.status(200).json(places)
 		} catch (err) {
 			console.error(err);
 			return res.status(500).json(this.defaultErrorMessage)
@@ -53,26 +46,14 @@ class PlaceController extends Controller {
 				include: [
 					'type',
 					{
-						model: Place,
 						association: 'places',
 						through: { attributes: [] },
-						attributes: {
-							include: [
-								[fn('COUNT', col('places.Typeid')), 'placeCount'],
-							]
-						},
-						include: [
-							'type',
-							{ association: 'places', attributes: [] },
-						],
+						include: ['type'],
 					}
 				],
 			})
 
-			return res.status(200).json({
-				placeCount: place.places.length,
-				...place.toJSON(),
-			})
+			return res.status(200).json(place)
 		} catch (err) {
 			console.error(err);
 			return res.status(500).json(this.defaultErrorMessage)

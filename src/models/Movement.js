@@ -53,8 +53,8 @@ Movement.init({
 }, {
 	sequelize,
 	tableName: 'Movement',
-	deletedAt: false,
-	timestamps: false,
+	paranoid: false,
+	timestamps: true,
 	defaultScope: {
 		attributes: {
 			exclude: [

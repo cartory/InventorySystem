@@ -43,6 +43,13 @@ Place.init({
 	tableName: 'Place',
 	deletedAt: true,
 	timestamps: true,
+	defaultScope: {
+		attributes: {
+			exclude: [
+				'Typeid'
+			]
+		}
+	}
 })
 
 module.exports = Place

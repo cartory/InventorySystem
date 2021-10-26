@@ -1,14 +1,13 @@
-const { Op } = require('sequelize')
+const { Equipment } = require('../utils/models')
 const { Controller } = require('../utils/controller')
-const { Equipment, Movement, Place } = require('../utils/models')
 
 class EquipmentController extends Controller {
 	constructor() {
 		super(Equipment)
 	}
-	
+
 	all = async (req, res) => {
-		const { page = 0, limit = 10, placeId } = req.query
+		const { page = 0, limit = 10, placeId, query } = req.query
 
 		try {
 			let equipments = await Equipment.findAll({

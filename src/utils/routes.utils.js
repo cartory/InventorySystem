@@ -4,7 +4,6 @@ const addOperation = {
 	create: (router, route, controller) => router.post(`/${route}`, controller.save),
 	show: (router, route, controller) => router.get(`/${route}/:id`, controller.find),
 	update: (router, route, controller) => router.post(`/${route}/:id`, controller.save),
-	search: (router, route, controller) => router.get(`/${route}/search`, controller.search),
 	delete: (router, route, controller) => router.delete(`/${route}/:id`, controller.destroy),
 }
 

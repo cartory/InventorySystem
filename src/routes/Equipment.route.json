@@ -1,7 +1,6 @@
 {
 	"route": "equipments",
 	"operations": [
-		"search",
 		"read",
 		"show",
 		"create",

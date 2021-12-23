@@ -50,6 +50,7 @@ const seedEquipments = ({ module, rooms = [], Reasonid }) => {
 				equipment = await Equipment.create({
 					...equipment,
 					Unitid: unit?.getDataValue('id'),
+					Placeid: placeTo?.getDataValue('id')
 				})
 
 				await Movement.create({
@@ -69,22 +70,22 @@ const seedEquipments = ({ module, rooms = [], Reasonid }) => {
 sequelize
 	.authenticate()
 	.then(async () => {
-		await sequelize.dropAllSchemas({ logging: true })
-		await sequelize.sync({ alter: true })
+		// await sequelize.dropAllSchemas({ logging: true })
+		// await sequelize.sync({ alter: true })
 		try {
-			await Unit.bulkCreate(data.unit.map(name => ({ name })))
-			await Reason.bulkCreate(data.reason.map(name => ({ name })))
-			await Type.bulkCreate(data.place_type.map(name => ({ name })))
+			// await Unit.bulkCreate(data.unit.map(name => ({ name })))
+			// await Reason.bulkCreate(data.reason.map(name => ({ name })))
+			// await Type.bulkCreate(data.place_type.map(name => ({ name })))
 
-			seedPlaces({ places: data.place })
+			// seedPlaces({ places: data.place })
 
-			let reason = await Reason.findOne({ where: { name: 'transaction' } })
-			modules.forEach(([module, rooms]) => {
-				seedEquipments({
-					module, rooms,
-					Reasonid: reason?.getDataValue('id')
-				})
-			})
+			// let reason = await Reason.findOne({ where: { name: 'transaction' } })
+			// modules.forEach(([module, rooms]) => {
+			// 	seedEquipments({
+			// 		module, rooms,
+			// 		Reasonid: reason?.getDataValue('id')
+			// 	})
+			// })
 		} catch (err) {
 			console.error(err);
 			process.exit(0)
